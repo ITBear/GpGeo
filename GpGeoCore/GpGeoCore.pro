@@ -24,8 +24,10 @@ SOURCES += \
 	Geometry/GpGeoHash.cpp \
 	Geometry/GpGeoPolyline.cpp \
 	Geometry/GpGeoShape.cpp \
+	Geometry/GpGeoShapeCache.cpp \
 	Geometry/GpGeoShapeType.cpp \
 	Utils/GpGeoCoordinateSystem.cpp \
+	Utils/GpGeoSmallScaleUtils.cpp \
 	Utils/GpGeoToString.cpp
 
 HEADERS += \
@@ -35,6 +37,8 @@ HEADERS += \
 	Geometry/GpGeoPoint.hpp \
 	Geometry/GpGeoPolyline.hpp \
 	Geometry/GpGeoShape.hpp \
+	Geometry/GpGeoShapeCache.hpp \
+	Geometry/GpGeoShapeCacheImpl.hpp \
 	Geometry/GpGeoShapeType.hpp \
 	GpGeoCore.hpp \
 	GpGeoCore_global.hpp \
@@ -44,7 +48,11 @@ HEADERS += \
 	Utils/CoordinateConverters/GpGeoCC_Wgs84_WebMercator.hpp \
 	Utils/CoordinateConverters/GpGeoCoordinateConverter.hpp \
 	Utils/CoordinateConverters/GpGeoCoordinateConverters.hpp \
+	Utils/GpGeoConstants.hpp \
 	Utils/GpGeoCoordinateSystem.hpp \
-	Utils/GpGeoPrecision.hpp \
+	Utils/GpGeoFormatManager.hpp \
+	Utils/GpGeoFormatManagerFactory.hpp \
+	Utils/GpGeoGeoidUtils.hpp \
+	Utils/GpGeoSmallScaleUtils.hpp \
 	Utils/GpGeoToString.hpp \
 	Utils/GpGeoUtils.hpp

@@ -1,10 +1,25 @@
 #include "GpGeoToString.hpp"
 
+#include <sstream>
+
 namespace GPlatform {
 
-std::string GpGeoToString::SToString (const GpGeoShape& aShape)
+template <typename T>
+std::u8string __SToString
+(
+    const T         aValue,
+    const size_t    aPrecision
+)
 {
-    std::string resStr;
+    std::ostringstream out;
+    out.precision(int(aPrecision));
+    out << std::fixed << aValue;
+    return std::u8string(GpUTF::S_STR_To_UTF8(out.str()));
+}
+
+std::u8string   GpGeoToString::SToString (const GpGeoShape& aShape)
+{
+    std::u8string resStr;
     resStr.reserve(512);
 
     size_t contourId = 0;
@@ -13,17 +28,17 @@ std::string GpGeoToString::SToString (const GpGeoShape& aShape)
     {
         if (contourId > 0)
         {
-            resStr.append("\n"_sv);
+            resStr.append(u8"\n"_sv);
         }
 
-        resStr.append("contour_"_sv + contourId + ": ["_sv);
+        resStr.append(u8"contour_"_sv + contourId + u8": ["_sv);
 
         for (const GpGeoPoint& point: contour.Points())
         {
-            resStr.append("("_sv + point.Lat().Value() + ", "_sv + point.Lon().Value() + ")");
+            resStr.append(u8"("_sv + __SToString(point.Lat().Value(), 14) + u8", "_sv + __SToString(point.Lon().Value(), 14) + u8")");
         }
 
-        resStr.append("]"_sv);
+        resStr.append(u8"]"_sv);
 
         contourId++;
     }

@@ -2,6 +2,6 @@
 
 namespace GPlatform {
 
-GP_ENUM_IMPL(GpGeoExceptionCode);
+GP_ENUM_IMPL(GpGeoExceptionCode)
 
 }//namespace GPlatform

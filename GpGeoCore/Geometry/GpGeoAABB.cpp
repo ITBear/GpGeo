@@ -1,5 +1,7 @@
 #include "GpGeoAABB.hpp"
 #include "GpGeoShape.hpp"
+#include "GpGeoPolyline.hpp"
+#include "../Utils/GpGeoGeoidUtils.hpp"
 
 namespace GPlatform {
 
@@ -41,6 +43,22 @@ GpGeoAABB   GpGeoAABB::SFromShape (const GpGeoShape& aShape) noexcept
     (
         {geo_lat_t::SMake(latMin), geo_lon_t::SMake(lonMin)},
         {geo_lat_t::SMake(latMax), geo_lon_t::SMake(lonMax)}
+    );
+}
+
+GpGeoAABB   GpGeoAABB::SFromPointAndR
+(
+    const GpGeoPoint&   aSearchPoint,
+    const meters_t      aSearchRadius
+)
+{
+    angle_deg_t d = GpGeoGeoidUtils::SMetersToLatAngle(aSearchPoint.Lat(), aSearchRadius*meters_t::SMake(2.0));
+
+    return SFromCentralPoint
+    (
+        aSearchPoint,
+        geo_lat_t::SMake(d.Value()),
+        geo_lon_t::SMake(d.Value())
     );
 }
 

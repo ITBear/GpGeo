@@ -1,14 +1,14 @@
-#include "GpGeoElementDesc.hpp"
+#include "GpGeoAttribute.hpp"
 
 namespace GPlatform {
 
-REFLECT_IMPLEMENT(GpGeoElementDesc, GP_MODULE_UUID)
+/*REFLECT_IMPLEMENT(GpGeoAttribute, GP_MODULE_UUID)
 
-GpGeoElementDesc::GpGeoElementDesc (void) noexcept
+GpGeoAttribute::GpGeoAttribute (void) noexcept
 {
 }
 
-GpGeoElementDesc::GpGeoElementDesc (const GpGeoElementDesc& aDesc):
+GpGeoAttribute::GpGeoAttribute (const GpGeoAttribute& aDesc):
 GpReflectObject(aDesc),
 id       (GpReflectUtils::SCopyValue(aDesc.id)),
 type_id  (GpReflectUtils::SCopyValue(aDesc.type_id)),
@@ -19,7 +19,7 @@ shape_id (GpReflectUtils::SCopyValue(aDesc.shape_id))
 {
 }
 
-GpGeoElementDesc::GpGeoElementDesc (GpGeoElementDesc&& aDesc) noexcept:
+GpGeoAttribute::GpGeoAttribute (GpGeoAttribute&& aDesc) noexcept:
 GpReflectObject(std::move(aDesc)),
 id       (std::move(aDesc.id)),
 type_id  (std::move(aDesc.type_id)),
@@ -30,11 +30,11 @@ shape_id (std::move(aDesc.shape_id))
 {
 }
 
-GpGeoElementDesc::~GpGeoElementDesc (void) noexcept
+GpGeoAttribute::~GpGeoAttribute (void) noexcept
 {
 }
 
-void    GpGeoElementDesc::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aPropsOut)
+void    GpGeoAttribute::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aPropsOut)
 {
     {
         GpReflectPropFlags      f       = {GpReflectPropFlag::GENERATED_ONCE, GpReflectPropFlag::PRIMARY_KEY};
@@ -48,5 +48,5 @@ void    GpGeoElementDesc::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aPr
     PROP(parent_id);
     PROP(shape_id);
 }
-
+*/
 }//namespace GPlatform

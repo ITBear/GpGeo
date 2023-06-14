@@ -20,19 +20,20 @@ os_linux{
 #------------------------------- LIBS END ----------------------------------
 
 SOURCES += \
-    Enentities/GpGeoElementDesc.cpp \
-    Enentities/GpGeoElementNameDesc.cpp \
-    Enentities/GpGeoShapeDesc.cpp \
+    Entities/GpGeoAttribute.cpp \
+    Entities/GpGeoElementDesc.cpp \
+    Entities/GpGeoElementNameDesc.cpp \
+    Entities/GpGeoShapeDesc.cpp \
     Exceptions/GpGeoException.cpp \
     Exceptions/GpGeoExceptionCode.cpp
 
 HEADERS += \
-    Enentities/GpGeoDataModelEnentities.hpp \
-    Enentities/GpGeoElementDesc.hpp \
-    Enentities/GpGeoElementNameDesc.hpp \
-    Enentities/GpGeoShapeDesc.hpp \
+    Entities/GpGeoAttribute.hpp \
+    Entities/GpGeoDataModelEntities.hpp \
+    Entities/GpGeoElementDesc.hpp \
+    Entities/GpGeoElementNameDesc.hpp \
+    Entities/GpGeoShapeDesc.hpp \
     Exceptions/GpGeoException.hpp \
     Exceptions/GpGeoExceptionCode.hpp \
     Exceptions/GpGeoExceptions.hpp \
-    GpGeoDataModel.hpp \
     GpGeoDataModel_global.hpp

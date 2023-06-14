@@ -3,6 +3,7 @@
 #include "GpGeoPolyline.hpp"
 #include "GpGeoAABB.hpp"
 #include "GpGeoShapeType.hpp"
+#include "GpGeoShapeCache.hpp"
 
 namespace GPlatform {
 
@@ -12,26 +13,43 @@ public:
     CLASS_DD(GpGeoShape)
 
 public:
-    using ContoursT = GpGeoPolyline::C::Vec::Val;
+    using ContoursT     = GpGeoPolyline::C::Vec::Val;
+    using PointsLatT    = std::vector<geo_lat_t>;
+    using PointsLonT    = std::vector<geo_lon_t>;
+    using PointsLatLonT = std::tuple<PointsLatT, PointsLonT, std::vector<size_t>/*contours size*/>;
 
 public:
-    inline                  GpGeoShape      (void) noexcept;
-    inline                  GpGeoShape      (const GpGeoShape& aShape);
-    inline                  GpGeoShape      (GpGeoShape&& aShape) noexcept;
-    inline                  GpGeoShape      (ContoursT aContours) noexcept;
-                            ~GpGeoShape     (void) noexcept = default;
+    inline                  GpGeoShape          (void) noexcept;
+    inline                  GpGeoShape          (const GpGeoShape& aShape);
+    inline                  GpGeoShape          (GpGeoShape&& aShape) noexcept;
+    inline                  GpGeoShape          (ContoursT aContours) noexcept;
+                            ~GpGeoShape         (void) noexcept = default;
 
-    inline GpGeoShape&      operator=       (const GpGeoShape& aShape);
-    inline GpGeoShape&      operator=       (GpGeoShape&& aShape) noexcept;
+    inline GpGeoShape&      operator=           (const GpGeoShape& aShape);
+    inline GpGeoShape&      operator=           (GpGeoShape&& aShape) noexcept;
 
-    GpGeoShapeType::EnumT   Type            (void) const noexcept;
+    GpGeoShapeType::EnumT   Type                (void) const noexcept;
 
-    const ContoursT&        Contours        (void) const noexcept {return iContours;}
-    ContoursT&              Contours        (void) noexcept {return iContours;}
+    const ContoursT&        Contours            (void) const noexcept {return iContours;}
+    ContoursT&              Contours            (void) noexcept {return iContours;}
 
-    inline GpGeoShape&      AddContour      (GpGeoPolyline aContour);
+    size_t                  PointsCount         (void) const noexcept;
+    PointsLatLonT           CollectPointsLatLon (void) const;
 
-    GpGeoShape              Intersect       (const GpGeoAABB& aAABB) const;
+    inline GpGeoShape&      AddContour          (const GpGeoPolyline& aContour);
+    inline GpGeoShape&      AddContour          (GpGeoPolyline&& aContour);
+
+    //TODO: move to utils
+    bool                    IsInside            (const GpGeoAABB& aAABB) const;
+    GpGeoShape::C::Vec::Val Intersect           (const GpGeoAABB& aAABB,
+                                                 GpGeoShapeCache& aCache) const;
+
+private:
+    GpGeoShape              _IntersectPoints    (const GpGeoAABB& aAABB) const;
+    GpGeoShape              _IntersectLines     (const GpGeoAABB& aAABB,
+                                                 GpGeoShapeCache& aCache) const;
+    GpGeoShape::C::Vec::Val _IntersectPolygons  (const GpGeoAABB& aAABB,
+                                                 GpGeoShapeCache& aCache) const;
 
 private:
     ContoursT               iContours;
@@ -68,7 +86,13 @@ GpGeoShape& GpGeoShape::operator= (GpGeoShape&& aShape) noexcept
     return *this;
 }
 
-GpGeoShape& GpGeoShape::AddContour (GpGeoPolyline aContour)
+GpGeoShape& GpGeoShape::AddContour (const GpGeoPolyline& aContour)
+{
+    iContours.emplace_back(aContour);
+    return *this;
+}
+
+GpGeoShape& GpGeoShape::AddContour (GpGeoPolyline&& aContour)
 {
     iContours.emplace_back(std::move(aContour));
     return *this;

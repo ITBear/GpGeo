@@ -1,52 +1,64 @@
 #pragma once
 
 #include "../Units/GpGeoUnits.hpp"
-#include "../Utils/GpGeoPrecision.hpp"
+#include "../Utils/GpGeoConstants.hpp"
+#include "../../../GpCore2/GpUtils/Types/Containers/GpContainersT.hpp"
+#include "../../../GpGeometry/GpGeometryCore/GpPoint2d.hpp"
 
 namespace GPlatform {
 
 class GpGeoPointType_UNIT;
 
-class GpGeoPoint final: protected GpUnit<double, 2, GpGeoPointType_UNIT, std::ratio<intmax_t(1), intmax_t(1)> , decltype("geo_lat_lon"_template_str)>
+class GpGeoPoint
 {
 public:
     CLASS_DD(GpGeoPoint)
 
 public:
-    constexpr inline                GpGeoPoint      (void) noexcept;
-    constexpr inline                GpGeoPoint      (const GpGeoPoint& aPoint) noexcept;
-    constexpr inline                GpGeoPoint      (GpGeoPoint&& aPoint) noexcept;
-    constexpr inline                GpGeoPoint      (const geo_lat_t    aLat,
-                                                     const geo_lon_t    aLon) noexcept;
-    constexpr                       ~GpGeoPoint     (void) noexcept = default;
+    constexpr                           GpGeoPoint          (void) noexcept = default;
+    constexpr inline                    GpGeoPoint          (const GpGeoPoint& aPoint) noexcept;
+    constexpr inline                    GpGeoPoint          (GpGeoPoint&& aPoint) noexcept;
+    constexpr inline                    GpGeoPoint          (const geo_lat_t    aLat,
+                                                             const geo_lon_t    aLon) noexcept;
 
-    constexpr inline void           Reset           (void) noexcept;
+#if  (__cplusplus >= CPP_VERSION_20)
+    constexpr                           ~GpGeoPoint         (void) noexcept = default;
+#else
+                                        ~GpGeoPoint         (void) noexcept = default;
+#endif//#if  (__cplusplus >= CPP_VERSION_20)
 
-    constexpr inline GpGeoPoint&    operator=       (const GpGeoPoint& aPoint) noexcept;
-    constexpr inline GpGeoPoint&    operator=       (GpGeoPoint&& aPoint) noexcept;
-    constexpr inline bool           operator==      (const GpGeoPoint& aPoint) const noexcept;
+    constexpr inline void               Reset               (void) noexcept;
 
-    constexpr geo_lat_t             Lat             (void) const noexcept {return geo_lat_t::SMake(Container()[0]);}
-    constexpr geo_lon_t             Lon             (void) const noexcept {return geo_lon_t::SMake(Container()[1]);}
-    constexpr void                  SetLat          (const geo_lat_t aLat) noexcept {Container()[0] = aLat.Value();}
-    constexpr void                  SetLon          (const geo_lon_t aLon) noexcept {Container()[1] = aLon.Value();}
-    constexpr void                  Set             (const geo_lat_t aLat,
-                                                     const geo_lon_t aLon) noexcept {SetLat(aLat); SetLon(aLon);}
-    constexpr void                  Set             (const GpGeoPoint& aPoint) noexcept {GpUnit::Set(aPoint);}
+    constexpr inline GpGeoPoint&        operator=           (const GpGeoPoint& aPoint) noexcept;
+    constexpr inline GpGeoPoint&        operator=           (GpGeoPoint&& aPoint) noexcept;
+    constexpr inline bool               operator==          (const GpGeoPoint& aPoint) const noexcept;
+
+    constexpr geo_lat_t                 Lat                 (void) const noexcept {return iLat;}
+    constexpr geo_lon_t                 Lon                 (void) const noexcept {return iLon;}
+    constexpr GpGeoPoint&               SetLat              (const geo_lat_t aLat) noexcept {iLat = aLat; return *this;}
+    constexpr GpGeoPoint&               SetLon              (const geo_lon_t aLon) noexcept {iLon = aLon; return *this;}
+    constexpr inline GpGeoPoint&        Set                 (const geo_lat_t aLat,
+                                                             const geo_lon_t aLon) noexcept;
+    constexpr inline GpGeoPoint&        Set                 (const GpGeoPoint& aPoint) noexcept;
+
+    constexpr GpPoint2d                 AsPoint2D           (void) const noexcept {return GpPoint2d(Lat().Value(), Lon().Value());}
+    constexpr inline GpGeoPoint&        FromPoint2D         (const GpPoint2d& aPoint) noexcept;
+    static constexpr inline GpGeoPoint  SFromPoint2D        (const GpPoint2d& aPoint) noexcept;
+
+private:
+    geo_lat_t       iLat;
+    geo_lon_t       iLon;
 };
 
-constexpr GpGeoPoint::GpGeoPoint (void) noexcept:
-GpUnit()
-{
-}
-
 constexpr GpGeoPoint::GpGeoPoint (const GpGeoPoint& aPoint) noexcept:
-GpUnit(aPoint)
+iLat(aPoint.iLat),
+iLon(aPoint.iLon)
 {
 }
 
 constexpr GpGeoPoint::GpGeoPoint (GpGeoPoint&& aPoint) noexcept:
-GpUnit(std::move(aPoint))
+iLat(std::move(aPoint.iLat)),
+iLon(std::move(aPoint.iLon))
 {
 }
 
@@ -55,7 +67,8 @@ constexpr GpGeoPoint::GpGeoPoint
     const geo_lat_t aLat,
     const geo_lon_t aLon
 ) noexcept:
-GpUnit(container_type{aLat.Value(), aLon.Value()})
+iLat(aLat),
+iLon(aLon)
 {
 }
 
@@ -63,6 +76,26 @@ constexpr void  GpGeoPoint::Reset (void) noexcept
 {
     SetLat(0.0_geo_lat);
     SetLon(0.0_geo_lon);
+}
+
+constexpr GpGeoPoint&   GpGeoPoint::Set
+(
+    const geo_lat_t aLat,
+    const geo_lon_t aLon
+) noexcept
+{
+    iLat = aLat;
+    iLon = aLon;
+
+    return *this;
+}
+
+constexpr GpGeoPoint&   GpGeoPoint::Set (const GpGeoPoint& aPoint) noexcept
+{
+    iLat = aPoint.iLat;
+    iLon = aPoint.iLon;
+
+    return *this;
 }
 
 constexpr GpGeoPoint&   GpGeoPoint::operator= (const GpGeoPoint& aPoint) noexcept
@@ -79,21 +112,26 @@ constexpr GpGeoPoint&   GpGeoPoint::operator= (GpGeoPoint&& aPoint) noexcept
 
 constexpr bool  GpGeoPoint::operator== (const GpGeoPoint& aPoint) const noexcept
 {
-    return    NumOps::SIsEqualToDelta(Lat().Value(), aPoint.Lat().Value(), GpGeoPrecision::SEqualDelta())
-           && NumOps::SIsEqualToDelta(Lon().Value(), aPoint.Lon().Value(), GpGeoPrecision::SEqualDelta());
+    return    NumOps::SIsEqualToDelta(Lat().Value(), aPoint.Lat().Value(), GpGeoConstants::SEqualDelta())
+           && NumOps::SIsEqualToDelta(Lon().Value(), aPoint.Lon().Value(), GpGeoConstants::SEqualDelta());
 }
 
-/*GpGeoPoint    GpGeoPoint::SCentralPoint
-(
-    const GpGeoPoint& aPointA,
-    const GpGeoPoint& aPointB
-) noexcept
+constexpr GpGeoPoint&   GpGeoPoint::FromPoint2D (const GpPoint2d& aPoint) noexcept
 {
-    return GpGeoPoint
+    Set
     (
-        aPointA.Lat() + (aPointB.Lat() - aPointA.Lat())*0.5_geo_lat,
-        aPointA.Lon() + (aPointB.Lon() - aPointA.Lon())*0.5_geo_lon
+        geo_lat_t::SMake(aPoint.X()),
+        geo_lon_t::SMake(aPoint.Y())
     );
-}*/
+
+    return *this;
+}
+
+constexpr GpGeoPoint    GpGeoPoint::SFromPoint2D (const GpPoint2d& aPoint) noexcept
+{
+    GpGeoPoint p;
+    p.FromPoint2D(aPoint);
+    return p;
+}
 
 }//namespace GPlatform

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Units/GpGeoUnits.hpp"
-#include "GpGeoPoint.hpp"
 #include "GpGeoAABB.hpp"
 
 namespace GPlatform {
@@ -15,7 +13,7 @@ public:
     using value_type        = std::array<std::byte, 8>;
     using BitsCount         = std::tuple<size_bit_t/*lat*/, size_bit_t/*lon*/>;
     using HashLen2Bits      = std::array<BitsCount, 1 + 12>;
-    using AlphabetT         = std::array<char, 32>;
+    using AlphabetT         = std::array<char8_t, 32>;
     using OneOrVectorValT   = std::variant<GpGeoHash, GpGeoHash::C::Vec::Val>;
     using ZoneSizeT         = std::tuple<geo_lat_t, geo_lon_t>;
     using ZoneSizeWorldT    = std::array<ZoneSizeT, 1 + 12>;
@@ -38,7 +36,12 @@ public:
                                                      const GpGeoAABB&   aWorldAABB);
     constexpr inline            GpGeoHash           (const value_type   aRawValue) noexcept;
     constexpr inline            GpGeoHash           (const u_int_64     aRawValue) noexcept;
+
+#if  (__cplusplus >= CPP_VERSION_20)
     constexpr inline            ~GpGeoHash          (void) noexcept;
+#else
+    inline                      ~GpGeoHash          (void) noexcept;
+#endif//#if  (__cplusplus >= CPP_VERSION_20)
 
     constexpr inline GpGeoHash& operator=           (const GpGeoHash& aGeohash) noexcept;
     constexpr inline GpGeoHash& operator=           (GpGeoHash&& aGeohash) noexcept;
@@ -50,10 +53,13 @@ public:
     constexpr u_int_64          ValueAsUI64         (void) const noexcept {return std::bit_cast<u_int_64>(iValue);}
     constexpr void              SetValueUI64        (const u_int_64 aValue) noexcept {iValue = std::bit_cast<value_type>(aValue);}
 
-    std::string                 ToString            (const size_t aHashLength) const;
-    void                        FromString          (std::string_view aHashStr);
+    std::u8string               ToString            (const size_t aHashLength) const;
+    void                        FromString          (std::u8string_view aHashStr);
 
-    GpGeoHash                   CropToLength        (const size_t aHashLength) const;
+    void                        UpdateLength        (const size_t aOldLength,
+                                                     const size_t aNewLength);
+    std::array<GpGeoHash, 9>    Neighbours          (const size_t aHashLength) const;
+
 
     GpGeoPoint                  ToPoint             (const size_t       aHashLength) const {return ToPoint(aHashLength, GpGeoAABB(GpGeoAABB::ALL_SPHERE_WGS84));}
     GpGeoPoint                  ToPoint             (const size_t       aHashLength,
@@ -80,7 +86,7 @@ public:
     static OneOrVectorValT      SFromAABB           (const GpGeoAABB&   aAABB,
                                                      const size_t       aHashLength,
                                                      const GpGeoAABB&   aWorldAABB);
-    inline static GpGeoHash     SFromString         (std::string_view   aHashStr);
+    inline static GpGeoHash     SFromString         (std::u8string_view aHashStr);
     static OneOrVectorValT      SMakeZones          (const GpGeoHash&   aMinPointGeoHash,
                                                      const GpGeoHash&   aMaxPointGeoHash,
                                                      const size_t       aHashLength);
@@ -110,11 +116,14 @@ private:
     value_type                  iValue;
     static const HashLen2Bits   sHashLen2Bits;
     static const ZoneSizeWorldT sSizeOfZonesWorld;
+
+public:
     static const AlphabetT      sAlphabet;
 };
 
 constexpr GpGeoHash::GpGeoHash (void) noexcept
 {
+    iValue.fill(std::byte(0));
 }
 
 constexpr GpGeoHash::GpGeoHash (const GpGeoHash& aGeohash) noexcept:
@@ -123,7 +132,7 @@ iValue(aGeohash.iValue)
 }
 
 constexpr GpGeoHash::GpGeoHash (GpGeoHash&& aGeohash) noexcept:
-iValue(std::move(aGeohash.iValue))
+iValue(aGeohash.iValue)
 {
 }
 
@@ -177,9 +186,15 @@ iValue(std::bit_cast<value_type>(aRawValue))
 {
 }
 
+#if  (__cplusplus >= CPP_VERSION_20)
 constexpr GpGeoHash::~GpGeoHash (void) noexcept
 {
 }
+#else
+GpGeoHash::~GpGeoHash (void) noexcept
+{
+}
+#endif//#if  (__cplusplus >= CPP_VERSION_20)
 
 constexpr GpGeoHash&    GpGeoHash::operator= (const GpGeoHash& aGeohash) noexcept
 {
@@ -238,7 +253,7 @@ GpGeoAABB   GpGeoHash::ToAABB
     );
 }
 
-GpGeoHash   GpGeoHash::SFromString (std::string_view aHashStr)
+GpGeoHash   GpGeoHash::SFromString (std::u8string_view aHashStr)
 {
     GpGeoHash h;
     h.FromString(aHashStr);
@@ -294,7 +309,7 @@ constexpr   GpGeoHash::HashLen2Bits GpGeoHash::SHashLen2Bits (void) noexcept
 }
 
 constexpr GpGeoHash::ZoneSizeWorldT GpGeoHash::SSizeOfZonesWorld (void)
-{
+{   
     constexpr const GpGeoAABB aabb = GpGeoAABB(GpGeoAABB::ALL_SPHERE_WGS84);
 
     constexpr const ZoneSizeWorldT sizes

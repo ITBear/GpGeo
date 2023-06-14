@@ -12,14 +12,14 @@ public:
     CLASS_DD(GpGeoPolyline)
 
 public:
-    enum class IntersectStateT
+    enum class TrimStateT
     {
         ALL_DROPPED,
         ALL_KEEPT
     };
 
-    using PointsT       = GpGeoPoint::C::Vec::Val;
-    using IntersectResT = std::variant<IntersectStateT, GpGeoPolyline::C::Vec::Val>;
+    using PointsT   = GpGeoPoint::C::Vec::Val;
+    using TrimResT  = std::variant<TrimStateT, GpGeoPolyline::C::Vec::Val>;
 
 public:
     inline                  GpGeoPolyline       (void) noexcept = default;
@@ -33,19 +33,24 @@ public:
     inline GpGeoPolyline&   operator=           (const GpGeoPolyline& aContour);
     inline GpGeoPolyline&   operator=           (GpGeoPolyline&& aContour) noexcept;
 
+    size_t                  PointsCount         (void) const noexcept {return iPoints.size();}
+
     const PointsT&          Points              (void) const noexcept {return iPoints;}
     PointsT&                Points              (void) noexcept {return iPoints;}
 
-    IntersectResT           Intersect           (const GpGeoAABB& aAABB) const;
+    //static TrimResT       STrim               (const GpGeoPolyline&   aPolyline,
+    //                                           const GpGeoAABB&       aAABB);
 
 private:
-    IntersectResT           _IntersectPolyline  (const GpGeoAABB& aAABB) const;
-    IntersectResT           _IntersectPolygon   (const GpGeoAABB& aAABB) const;
+    /*static TrimResT       _STrimPolyline      (const GpGeoPolyline&   aPolyline,
+                                                 const GpGeoAABB&       aAABB);
+    static TrimResT         _STrimPolygon       (const GpGeoPolyline&   aPolyline,
+                                                 const GpGeoAABB&       aAABB);
     static GpGeoPolyline    SFromSubPolyline    (const PointsT&     aPoints,
                                                  const size_t       aStartPointId,
                                                  const GpGeoPoint&  aStartPoint,
                                                  const size_t       aEndPointId,
-                                                 const GpGeoPoint&  aEndPoint);
+                                                 const GpGeoPoint&  aEndPoint);*/
 
 private:
     PointsT                 iPoints;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GpGeoPoint.hpp"
-#include "GpGeoPolyline.hpp"
+#include "../../../GpGeometry/GpGeometryCore/GpAabb2d.hpp"
 
 namespace GPlatform {
 
@@ -27,7 +27,12 @@ public:
     constexpr inline                    GpGeoAABB           (const InitMode /*aInitMode*/) noexcept;
     constexpr inline                    GpGeoAABB           (const GpGeoAABB& aAABB) noexcept;
     constexpr inline                    GpGeoAABB           (GpGeoAABB&& aAABB) noexcept;
+
+#if  (__cplusplus >= CPP_VERSION_20)
     constexpr                           ~GpGeoAABB          (void) noexcept = default;
+#else
+                                        ~GpGeoAABB          (void) noexcept = default;
+#endif//#if  (__cplusplus >= CPP_VERSION_20)
 
     constexpr const GpAabb2d&           _InnerAABB          (void) const noexcept {return iAABB;}
 
@@ -62,7 +67,16 @@ public:
                                                              const geo_lon_t aLon) const noexcept;
     constexpr inline bool               IsIntersect         (const GpGeoAABB& aAABB) const noexcept;
     inline IntersectLineRes             Intersect           (const GpGeoPoint& aPointA,
-                                                                 const GpGeoPoint& aPointB) const noexcept;
+                                                             const GpGeoPoint& aPointB) const noexcept;
+
+    inline std::optional<std::array<std::array<size_t, 2>, 2>>
+                                        SpartialIdxIntersect(const GpGeoAABB&   aAABB,
+                                                             const size_t       aSpartialResolution) const noexcept;
+
+    static GpGeoAABB                    SFromPointAndR      (const GpGeoPoint&  aSearchPoint,
+                                                             const meters_t     aSearchRadius);
+
+    inline std::array<GpGeoPoint, 4>    ToPoints            (void) const noexcept;
 
 private:
     GpAabb2d                            iAABB;
@@ -222,7 +236,7 @@ GpGeoAABB::IntersectLineRes GpGeoAABB::Intersect
     const GpGeoPoint& aPointB
 ) const noexcept
 {
-    const std::optional<GpLine2d> res = iAABB.Intersect
+    const GeometryTypes::TrimLine2dResT res = iAABB.Trim
     (
         {reinterpret_cast<const GpPoint2d&>(aPointA),
          reinterpret_cast<const GpPoint2d&>(aPointB)}
@@ -232,15 +246,37 @@ GpGeoAABB::IntersectLineRes GpGeoAABB::Intersect
     {
         const GpLine2d& line = res.value();
 
-        return
-        std::tuple<GpGeoPoint, GpGeoPoint>{
+        return std::tuple<GpGeoPoint, GpGeoPoint>
+        {
             reinterpret_cast<const GpGeoPoint&>(line.Start()),
             reinterpret_cast<const GpGeoPoint&>(line.End())
         };
     } else
     {
         return std::nullopt;
-    }
+    }   
+}
+
+std::optional<std::array<std::array<size_t, 2>, 2>> GpGeoAABB::SpartialIdxIntersect
+(
+    const GpGeoAABB&    aAABB,
+    const size_t        aSpartialResolution
+) const noexcept
+{
+    return iAABB.SpartialIdxIntersect(aAABB.iAABB, aSpartialResolution);
+}
+
+std::array<GpGeoPoint, 4>   GpGeoAABB::ToPoints (void) const noexcept
+{
+    const std::array<GpPoint2d, 4> points = iAABB.ToPoints();
+
+    return
+    {
+        reinterpret_cast<const GpGeoPoint&>(points[0]),
+        reinterpret_cast<const GpGeoPoint&>(points[1]),
+        reinterpret_cast<const GpGeoPoint&>(points[2]),
+        reinterpret_cast<const GpGeoPoint&>(points[3])
+    };
 }
 
 }//namespace GPlatform

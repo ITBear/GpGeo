@@ -2,6 +2,6 @@
 
 namespace GPlatform {
 
-GP_ENUM_IMPL(GpGeoCoordinateSystem);
+GP_ENUM_IMPL(GpGeoCoordinateSystem)
 
 }//namespace GPlatform

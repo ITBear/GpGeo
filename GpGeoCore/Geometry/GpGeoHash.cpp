@@ -7,21 +7,21 @@ constexpr const GpGeoHash::ZoneSizeWorldT   GpGeoHash::sSizeOfZonesWorld    = Gp
 
 const GpGeoHash::AlphabetT      GpGeoHash::sAlphabet =
 {
-    '0','1','2','3','4','5','6','7','8','9','b','c','d','e','f','g', 'h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z'
+    '0','1','2','3','4','5','6','7','8','9','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z'
 };
 
-std::string GpGeoHash::ToString (const size_t aHashLength) const
+std::u8string   GpGeoHash::ToString (const size_t aHashLength) const
 {
     THROW_COND_GP
     (
         (aHashLength >= 1) && (aHashLength <= 12),
-        "aHashLength is out of range [1..12]"_sv
+        u8"aHashLength is out of range [1..12]"_sv
     );
 
-    std::string hashStr;
+    std::u8string hashStr;
     hashStr.resize(aHashLength);
 
-    char* hashStrChar = hashStr.data();
+    char8_t* hashStrChar = hashStr.data();
     hashStrChar += (aHashLength - 1);
 
     u_int_64 hash = ValueAsUI64();
@@ -37,37 +37,37 @@ std::string GpGeoHash::ToString (const size_t aHashLength) const
     return hashStr;
 }
 
-void    GpGeoHash::FromString (std::string_view aHashStr)
+void    GpGeoHash::FromString (std::u8string_view aHashStr)
 {
     const size_t    hashStrLen  = aHashStr.length();
-    const char*     hashStrChar = aHashStr.data();
+    const char8_t*  hashStrChar = aHashStr.data();
 
     u_int_64 hash = 0;
 
     for (size_t i = 0; i < hashStrLen; i++)
     {
-        const char      ch          = *hashStrChar++;
+        const char8_t   ch          = *hashStrChar++;
         const u_int_64  chInt       = u_int_64(ch);
         u_int_64        hashPart    = 0;
 
-        if (NumOps::SIsBetween(ch, '0', '9'))
+        if (NumOps::SIsBetween(ch, u8'0', u8'9'))
         {
             hashPart = u_int_64(0) + chInt - u_int_64('0');
-        } else if (NumOps::SIsBetween(ch, 'b', 'h'))
+        } else if (NumOps::SIsBetween(ch, u8'b', u8'h'))
         {
             hashPart = u_int_64(10) + chInt - u_int_64('b');
-        } else if (NumOps::SIsBetween(ch, 'j', 'k'))
+        } else if (NumOps::SIsBetween(ch, u8'j', u8'k'))
         {
             hashPart = u_int_64(17) + chInt - u_int_64('j');
-        } else if (NumOps::SIsBetween(ch, 'm', 'n'))
+        } else if (NumOps::SIsBetween(ch, u8'm', u8'n'))
         {
             hashPart = u_int_64(19) + chInt - u_int_64('m');
-        } else if (NumOps::SIsBetween(ch, 'p', 'z'))
+        } else if (NumOps::SIsBetween(ch, u8'p', u8'z'))
         {
             hashPart = u_int_64(21) + chInt - u_int_64('p');
         } else
         {
-            THROW_GP("Wrong geohash value '"_sv + aHashStr + "', wrong character "_sv + std::string(&ch, 1));
+            THROW_GP(u8"Wrong geohash value '"_sv + aHashStr + u8"', wrong character "_sv + std::u8string(&ch, 1));
         }
 
         hash <<= 5;
@@ -77,7 +77,83 @@ void    GpGeoHash::FromString (std::string_view aHashStr)
     iValue = std::bit_cast<value_type>(hash);
 }
 
-GpGeoHash   GpGeoHash::CropToLength (const size_t aHashLength) const
+void    GpGeoHash::UpdateLength
+(
+    const size_t aOldLength,
+    const size_t aNewLength
+)
+{
+    THROW_COND_GP
+    (
+        (aOldLength >= 1) && (aOldLength <= 12),
+        u8"aOldLength is out of range [1..12]"_sv
+    );
+
+    THROW_COND_GP
+    (
+        (aNewLength >= 1) && (aNewLength <= 12),
+        u8"aNewLength is out of range [1..12]"_sv
+    );
+
+    if (aOldLength == aNewLength)
+    {
+        return;
+    }
+
+    const ssize_t delta = NumOps::SConvert<ssize_t>(aOldLength) - NumOps::SConvert<ssize_t>(aNewLength);
+
+    if (delta > 0)//New length is shorter
+    {
+        SetValueUI64(ValueAsUI64() >> (5*delta));
+    } else//New length is longer
+    {
+        SetValueUI64(ValueAsUI64() << (5*delta));
+    }
+}
+
+std::array<GpGeoHash, 9>    GpGeoHash::Neighbours (const size_t aHashLength) const
+{
+    THROW_COND_GP
+    (
+        (aHashLength >= 1) && (aHashLength <= 12),
+        u8"aHashLength is out of range [1..12]"_sv
+    );
+
+    const GpGeoAABB     aabb        = ToAABB(aHashLength);
+    const GpGeoPoint&   aabbCentral = aabb.Center();
+    const geo_lat_t     deltaLat    = aabb.HalfSizeLat() * 2.0_geo_lat;
+    const geo_lon_t     deltaLon    = aabb.HalfSizeLon() * 2.0_geo_lon;
+
+    const geo_lat_t     bottomLat   = aabbCentral.Lat() - deltaLat;
+    const geo_lat_t     centerLat   = aabbCentral.Lat();
+    const geo_lat_t     upLat       = aabbCentral.Lat() + deltaLat;
+
+    const geo_lon_t     leftLon     = aabbCentral.Lon() - deltaLon;
+    const geo_lon_t     centerLon   = aabbCentral.Lon();
+    const geo_lon_t     rightLon    = aabbCentral.Lon() + deltaLon;
+
+
+    const GpGeoHash upLeft      (GpGeoPoint(upLat,     leftLon),   aHashLength);
+    const GpGeoHash upCenter    (GpGeoPoint(upLat,     centerLon), aHashLength);
+    const GpGeoHash upRight     (GpGeoPoint(upLat,     rightLon),  aHashLength);
+
+    const GpGeoHash centerLeft  (GpGeoPoint(centerLat, leftLon),   aHashLength);
+    const GpGeoHash centerCenter(GpGeoPoint(centerLat, centerLon), aHashLength);
+    const GpGeoHash centerRight (GpGeoPoint(centerLat, rightLon),  aHashLength);
+
+    const GpGeoHash bottomLeft  (GpGeoPoint(bottomLat, leftLon),   aHashLength);
+    const GpGeoHash bottomCenter(GpGeoPoint(bottomLat, centerLon), aHashLength);
+    const GpGeoHash bottomRight (GpGeoPoint(bottomLat, rightLon),  aHashLength);
+
+    return
+    {
+        upLeft,     upCenter,     upRight,
+        centerLeft, centerCenter, centerRight,
+        bottomLeft, bottomCenter, bottomRight
+    };
+}
+
+/*GpGeoHash GpGeoHash::CropToLength (const size_t aHashLength) const
 {
     THROW_COND_GP
     (
@@ -94,7 +170,7 @@ GpGeoHash   GpGeoHash::CropToLength (const size_t aHashLength) const
     );
 
     return newHash;
-}
+}*/
 
 GpGeoPoint  GpGeoHash::ToPoint
 (

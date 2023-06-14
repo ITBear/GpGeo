@@ -8,7 +8,7 @@ namespace GPlatform {
 {
 public:
     CLASS_DD(GpGeoShapeDesc)
-    REFLECT_DECLARE("62cd5bc1-0c23-4438-b65e-a3e7b0914cd0"_uuid)
+    REFLECT_DECLARE(u8"62cd5bc1-0c23-4438-b65e-a3e7b0914cd0"_uuid)
 
 public:
                         GpGeoShapeDesc      (void) noexcept;
