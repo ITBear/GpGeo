@@ -59,6 +59,8 @@ public:
     void                        UpdateLength        (const size_t aOldLength,
                                                      const size_t aNewLength);
     std::array<GpGeoHash, 9>    Neighbours          (const size_t aHashLength) const;
+    OneOrVectorValT             Neighbours          (const size_t aHashLength,
+                                                     const size_t aHashOffsetCount) const;
 
 
     GpGeoPoint                  ToPoint             (const size_t       aHashLength) const {return ToPoint(aHashLength, GpGeoAABB(GpGeoAABB::ALL_SPHERE_WGS84));}

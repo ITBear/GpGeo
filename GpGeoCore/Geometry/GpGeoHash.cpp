@@ -119,10 +119,10 @@ std::array<GpGeoHash, 9>    GpGeoHash::Neighbours (const size_t aHashLength) con
         u8"aHashLength is out of range [1..12]"_sv
     );
 
-    const GpGeoAABB     aabb        = ToAABB(aHashLength);
-    const GpGeoPoint&   aabbCentral = aabb.Center();
-    const geo_lat_t     deltaLat    = aabb.HalfSizeLat() * 2.0_geo_lat;
-    const geo_lon_t     deltaLon    = aabb.HalfSizeLon() * 2.0_geo_lon;
+    const GpGeoAABB     thisAabb    = ToAABB(aHashLength);
+    const GpGeoPoint&   aabbCentral = thisAabb.Center();
+    const geo_lat_t     deltaLat    = thisAabb.HalfSizeLat() * 2.0_geo_lat;
+    const geo_lon_t     deltaLon    = thisAabb.HalfSizeLon() * 2.0_geo_lon;
 
     const geo_lat_t     bottomLat   = aabbCentral.Lat() - deltaLat;
     const geo_lat_t     centerLat   = aabbCentral.Lat();
@@ -151,6 +151,34 @@ std::array<GpGeoHash, 9>    GpGeoHash::Neighbours (const size_t aHashLength) con
         centerLeft, centerCenter, centerRight,
         bottomLeft, bottomCenter, bottomRight
     };
+}
+
+GpGeoHash::OneOrVectorValT  GpGeoHash::Neighbours
+(
+    const size_t aHashLength,
+    const size_t aHashOffsetCount
+) const
+{
+    THROW_COND_GP
+    (
+        (aHashLength >= 1) && (aHashLength <= 12),
+        u8"aHashLength is out of range [1..12]"_sv
+    );
+
+    const GpGeoAABB     thisAabb    = ToAABB(aHashLength);
+    const geo_lat_t     deltaLat    = thisAabb.HalfSizeLat() * 2.0_geo_lat * geo_lat_t::SMake(aHashOffsetCount);
+    const geo_lon_t     deltaLon    = thisAabb.HalfSizeLon() * 2.0_geo_lon * geo_lon_t::SMake(aHashOffsetCount);
+
+    return SFromAABB
+    (
+        GpGeoAABB::SFromCentralPoint
+        (
+            thisAabb.Center(),
+            deltaLat,
+            deltaLon
+        ),
+        aHashLength
+    );
 }
 
 /*GpGeoHash GpGeoHash::CropToLength (const size_t aHashLength) const
