@@ -196,8 +196,8 @@ GpGeoShape  GpGeoFormatEsriShapeManager::ReadShape (SHPObject* aShapeObj) const
 
         const size_t startPointId   = NumOps::SConvert<size_t>(partStartPointId[partId]);
         const size_t endPointId     = (partId == (partsCount - 1))
-                                      ? totalPointsCount - 1
-                                      : partStartPointId[partId + 1] - 1;
+                                      ? ((totalPointsCount - size_t(1)))
+                                      : (size_t(partStartPointId[partId + 1]) - size_t(1));
         const size_t pointCount     = endPointId - startPointId + 1;
 
         GpGeoPolyline               contour;
