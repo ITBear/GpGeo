@@ -1,4 +1,7 @@
 #include "GpGeoHash.hpp"
+#include "../../../GpCore2/GpUtils/Types/Strings/GpStringLiterals.hpp"
+#include "../../../GpCore2/GpUtils/Types/Strings/GpStringOps.hpp"
+#include "../../../GpCore2/GpUtils/Types/Bits/GpBitOps.hpp"
 
 namespace GPlatform {
 

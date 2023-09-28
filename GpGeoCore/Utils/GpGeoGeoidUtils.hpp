@@ -57,7 +57,7 @@ angle_rad_t GpGeoGeoidUtils::SMetersToLatAngle
 )
 {
     const double r  = GpGeoConstants::SEquatorialRadius().Value();
-    const double h  = r*(1.0 - sin(abs(aLat.Value())));
+    const double h  = r*(1.0 - sin(fabs(aLat.Value())));
     const double rs = NumOps::SSqrt<double>(h*(2.0*r - h));
     const double l  = 2.0*M_PI*rs;
 

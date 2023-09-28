@@ -1,6 +1,10 @@
 #pragma once
 
 #include "GpGeoAABB.hpp"
+#include "../../../GpCore2/GpUtils/Types/Units/Other/size_byte_t.hpp"
+
+#include <variant>
+#include <bit>
 
 namespace GPlatform {
 

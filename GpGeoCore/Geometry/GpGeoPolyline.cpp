@@ -211,7 +211,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
 
     GpPolyline2d::C::Vec::Val resPolygons = GpGeometryIntersectAlgo2d::STrimByAabb(polygon, aAABB._InnerAABB());
 
-    if (resPolygons.size() == 0)
+    if (resPolygons.empty())
     {
         return TrimStateT::ALL_DROPPED;
     }
@@ -270,7 +270,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
     points.emplace_back(aEndPoint);
 
     return polilineRes;
-}
+}*/
 
 /*bool  GpGeoPolyline::SIsIntersect
 (

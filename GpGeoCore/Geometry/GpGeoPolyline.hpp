@@ -2,6 +2,8 @@
 
 #include "GpGeoPoint.hpp"
 
+#include <variant>
+
 namespace GPlatform {
 
 class GpGeoAABB;

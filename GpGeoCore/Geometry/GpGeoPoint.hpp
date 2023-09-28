@@ -15,35 +15,35 @@ public:
     CLASS_DD(GpGeoPoint)
 
 public:
-    constexpr                           GpGeoPoint          (void) noexcept = default;
-    constexpr inline                    GpGeoPoint          (const GpGeoPoint& aPoint) noexcept;
-    constexpr inline                    GpGeoPoint          (GpGeoPoint&& aPoint) noexcept;
-    constexpr inline                    GpGeoPoint          (const geo_lat_t    aLat,
-                                                             const geo_lon_t    aLon) noexcept;
+    constexpr                           GpGeoPoint      (void) noexcept = default;
+    constexpr inline                    GpGeoPoint      (const GpGeoPoint& aPoint) noexcept;
+    constexpr inline                    GpGeoPoint      (GpGeoPoint&& aPoint) noexcept;
+    constexpr inline                    GpGeoPoint      (const geo_lat_t    aLat,
+                                                         const geo_lon_t    aLon) noexcept;
 
 #if  (__cplusplus >= CPP_VERSION_20)
-    constexpr                           ~GpGeoPoint         (void) noexcept = default;
+    constexpr                           ~GpGeoPoint     (void) noexcept = default;
 #else
-                                        ~GpGeoPoint         (void) noexcept = default;
+                                        ~GpGeoPoint     (void) noexcept = default;
 #endif//#if  (__cplusplus >= CPP_VERSION_20)
 
-    constexpr inline void               Reset               (void) noexcept;
+    constexpr inline void               Reset           (void) noexcept;
 
-    constexpr inline GpGeoPoint&        operator=           (const GpGeoPoint& aPoint) noexcept;
-    constexpr inline GpGeoPoint&        operator=           (GpGeoPoint&& aPoint) noexcept;
-    constexpr inline bool               operator==          (const GpGeoPoint& aPoint) const noexcept;
+    constexpr inline GpGeoPoint&        operator=       (const GpGeoPoint& aPoint) noexcept;
+    constexpr inline GpGeoPoint&        operator=       (GpGeoPoint&& aPoint) noexcept;
+    constexpr inline bool               operator==      (const GpGeoPoint& aPoint) const noexcept;
 
-    constexpr geo_lat_t                 Lat                 (void) const noexcept {return iLat;}
-    constexpr geo_lon_t                 Lon                 (void) const noexcept {return iLon;}
-    constexpr GpGeoPoint&               SetLat              (const geo_lat_t aLat) noexcept {iLat = aLat; return *this;}
-    constexpr GpGeoPoint&               SetLon              (const geo_lon_t aLon) noexcept {iLon = aLon; return *this;}
-    constexpr inline GpGeoPoint&        Set                 (const geo_lat_t aLat,
-                                                             const geo_lon_t aLon) noexcept;
-    constexpr inline GpGeoPoint&        Set                 (const GpGeoPoint& aPoint) noexcept;
+    constexpr geo_lat_t                 Lat             (void) const noexcept {return iLat;}
+    constexpr geo_lon_t                 Lon             (void) const noexcept {return iLon;}
+    constexpr GpGeoPoint&               SetLat          (const geo_lat_t aLat) noexcept {iLat = aLat; return *this;}
+    constexpr GpGeoPoint&               SetLon          (const geo_lon_t aLon) noexcept {iLon = aLon; return *this;}
+    constexpr inline GpGeoPoint&        Set             (const geo_lat_t aLat,
+                                                         const geo_lon_t aLon) noexcept;
+    constexpr inline GpGeoPoint&        Set             (const GpGeoPoint& aPoint) noexcept;
 
-    constexpr GpPoint2d                 AsPoint2D           (void) const noexcept {return GpPoint2d(Lat().Value(), Lon().Value());}
-    constexpr inline GpGeoPoint&        FromPoint2D         (const GpPoint2d& aPoint) noexcept;
-    static constexpr inline GpGeoPoint  SFromPoint2D        (const GpPoint2d& aPoint) noexcept;
+    constexpr GpPoint2d                 AsPoint2D       (void) const noexcept {return GpPoint2d(Lat().Value(), Lon().Value());}
+    constexpr inline GpGeoPoint&        FromPoint2D     (const GpPoint2d& aPoint) noexcept;
+    static constexpr inline GpGeoPoint  SFromPoint2D    (const GpPoint2d& aPoint) noexcept;
 
 private:
     geo_lat_t       iLat;

@@ -14,7 +14,7 @@ GpGeoShapeType::EnumT   GpGeoShape::Type (void) const noexcept
 
         GpGeoShapeType::EnumT contourType = GpGeoShapeType::UNKNOWN;
 
-        if (points.size() == 0)
+        if (points.empty())
         {
             contourType = GpGeoShapeType::UNKNOWN;
         } else if (points.size() == 1)

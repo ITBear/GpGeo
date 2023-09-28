@@ -99,7 +99,7 @@ void    GpGeoFormatEsriShapeManager::Write
 
         for (size_t id = 0; id < contoursCount; id++)
         {
-            panPartStart[id]= id > 0 ? panPartStart[id-1] + contoursSize[id-1] : 0;
+            panPartStart[id]= (id > 0) ? panPartStart[id-1] + int(contoursSize[id-1]) : 0;
             panPartType[id] = SHPT_POLYGON;
         }
 
