@@ -1,13 +1,18 @@
 TEMPLATE        = lib
 #CONFIG         += staticlib
-VER_MAJ		    = 0
+VER_MAJ		    = 2
 VER_MIN		    = 1
-VER_PAT		    = 2
+VER_PAT		    = 4
 QMAKE_CXXFLAGS += -DGP_MODULE_UUID=c3d3f469-2327-47aa-b6d0-951ff923bcff
 QMAKE_CXXFLAGS += -DGP_REFLECTION_STATIC_ADD_TO_MANAGER
-DEFINES		   += GP_GEO_CORE_LIBRARY
 PACKET_NAME     = GpGeoCore
 DIR_LEVEL       = ./../..
+
+DEFINES		   += GP_GEO_CORE_LIBRARY
+DEFINES        += "GP_CURRENT_LIB_VER_MAJ=\\\"$$VER_MAJ\\\""
+DEFINES        += "GP_CURRENT_LIB_VER_MIN=\\\"$$VER_MIN\\\""
+DEFINES        += "GP_CURRENT_LIB_VER_PAT=\\\"$$VER_PAT\\\""
+DEFINES        += "GP_CURRENT_LIB_PACKET_NAME=\\\"$$PACKET_NAME\\\""
 
 include(../../../QtGlobalPro.pri)
 
@@ -26,6 +31,7 @@ SOURCES += \
 	Geometry/GpGeoShape.cpp \
 	Geometry/GpGeoShapeCache.cpp \
 	Geometry/GpGeoShapeType.cpp \
+	GpGeoCore.cpp \
 	Utils/GpGeoCoordinateSystem.cpp \
 	Utils/GpGeoSmallScaleUtils.cpp \
 	Utils/GpGeoToString.cpp
