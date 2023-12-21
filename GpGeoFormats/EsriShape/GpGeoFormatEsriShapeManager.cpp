@@ -1,6 +1,6 @@
 #include "GpGeoFormatEsriShapeManager.hpp"
-#include "../../../GpCore2/GpUtils/Other/GpRAIIonDestruct.hpp"
 
+#include <GpCore2/GpUtils/Other/GpRAIIonDestruct.hpp>
 #include <iostream>
 
 namespace GPlatform {

@@ -2,8 +2,9 @@
 
 #include "../Units/GpGeoUnits.hpp"
 #include "../Utils/GpGeoConstants.hpp"
-#include "../../../GpCore2/GpUtils/Types/Containers/GpContainersT.hpp"
-#include "../../../GpGeometry/GpGeometryCore/GpPoint2d.hpp"
+
+#include <GpCore2/GpUtils/Types/Containers/GpContainersT.hpp>
+#include <GpGeometry/GpGeometryCore/GpPoint2d.hpp>
 
 namespace GPlatform {
 

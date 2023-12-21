@@ -1,7 +1,8 @@
 #pragma once
 
 #include "../GpGeoCore_global.hpp"
-#include "../../../GpCore2/GpUtils/Types/Units/SI/GpUnitsSI_Length.hpp"
+
+#include <GpCore2/GpUtils/Types/Units/SI/GpUnitsSI_Length.hpp>
 
 namespace GPlatform {
 

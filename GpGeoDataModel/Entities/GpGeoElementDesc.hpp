@@ -1,9 +1,10 @@
 #pragma once
 
 #include "../GpGeoDataModel_global.hpp"
-#include "../../../GpCore2/GpUtils/Macro/GpMacroClass.hpp"
-#include "../../../GpCore2/GpReflection/GpReflectObject.hpp"
-#include "../../../GpCore2/GpReflection/GpReflectUtils.hpp"
+
+#include <GpCore2/GpUtils/Macro/GpMacroClass.hpp>
+#include <GpCore2/GpReflection/GpReflectObject.hpp>
+#include <GpCore2/GpReflection/GpReflectUtils.hpp>
 
 namespace GPlatform {
 

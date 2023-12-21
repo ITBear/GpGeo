@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../GpCore2/GpUtils/Macro/GpMacroWarnings.hpp"
+#include <GpCore2/GpUtils/Macro/GpMacroWarnings.hpp>
 
 GP_WARNING_PUSH()
 GP_WARNING_DISABLE(sign-conversion)
