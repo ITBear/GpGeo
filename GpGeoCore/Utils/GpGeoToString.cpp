@@ -14,7 +14,7 @@ std::u8string __SToString
     std::ostringstream out;
     out.precision(int(aPrecision));
     out << std::fixed << aValue;
-    return std::u8string(GpUTF::S_STR_To_UTF8(out.str()));
+    return std::u8string(GpUTF::S_As_UTF8(out.str()));
 }
 
 std::u8string   GpGeoToString::SToString (const GpGeoShape& aShape)

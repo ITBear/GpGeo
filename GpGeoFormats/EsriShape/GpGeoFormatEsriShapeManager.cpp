@@ -12,7 +12,7 @@ GpGeoFormatEsriShapeManager::~GpGeoFormatEsriShapeManager (void) noexcept
 GpGeoShape::C::Vec::Val GpGeoFormatEsriShapeManager::Read (std::u8string_view aFileName)
 {
     const std::u8string fileName(aFileName);
-    SHPHandle shpHandle = SHPOpen(GpUTF::S_UTF8_To_STR(fileName.data()).data(), "rb");
+    SHPHandle shpHandle = SHPOpen(GpUTF::S_As_STR(fileName.data()).data(), "rb");
 
     THROW_COND_GP
     (
@@ -63,7 +63,7 @@ void    GpGeoFormatEsriShapeManager::Write
 )
 {
     const std::u8string fileName(aFileName);
-    SHPHandle shpHandle = SHPCreate(GpUTF::S_UTF8_To_STR(fileName.data()).data(), SHPT_POLYGON);
+    SHPHandle shpHandle = SHPCreate(GpUTF::S_As_STR(fileName.data()).data(), SHPT_POLYGON);
 
     THROW_COND_GP
     (
