@@ -12,7 +12,7 @@ class GP_GEO_DATA_MODEL_API GpGeoElementNameDesc final: public GpReflectObject
 {
 public:
     CLASS_DD(GpGeoElementNameDesc)
-    REFLECT_DECLARE(u8"aa18b505-27d2-450d-cb44-9021becc25ae"_uuid)
+    REFLECT_DECLARE("aa18b505-27d2-450d-cb44-9021becc25ae"_uuid)
 
 public:
                         GpGeoElementNameDesc        (void) noexcept = default;
@@ -25,7 +25,7 @@ public:
     s_int_32            language_id;
     unix_ts_s_t         create_ts;
     unix_ts_s_t         update_ts;
-    std::u8string       name;
+    std::string         name;
 };
 
 GpGeoElementNameDesc::GpGeoElementNameDesc (const GpGeoElementNameDesc& aDesc):
@@ -48,4 +48,4 @@ name       (std::move(aDesc.name))
 {
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

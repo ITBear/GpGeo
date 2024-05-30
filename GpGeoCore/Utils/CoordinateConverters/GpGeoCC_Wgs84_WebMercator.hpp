@@ -60,4 +60,4 @@ constexpr GpGeoPoint    GpGeoCC_Wgs84_WebMercator::CCBackward (const GpGeoPoint&
     );
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

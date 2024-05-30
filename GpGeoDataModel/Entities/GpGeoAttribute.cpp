@@ -34,7 +34,7 @@ GpGeoAttribute::~GpGeoAttribute (void) noexcept
 {
 }
 
-void    GpGeoAttribute::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aPropsOut)
+void    GpGeoAttribute::_SReflectCollectProps (GpReflectProp::SmallVecVal& aPropsOut)
 {
     {
         GpReflectPropFlags      f       = {GpReflectPropFlag::GENERATED_ONCE, GpReflectPropFlag::PRIMARY_KEY};
@@ -49,4 +49,4 @@ void    GpGeoAttribute::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aProp
     PROP(shape_id);
 }
 */
-}//namespace GPlatform
+}// namespace GPlatform

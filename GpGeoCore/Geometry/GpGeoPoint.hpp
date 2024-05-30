@@ -26,7 +26,7 @@ public:
     constexpr                           ~GpGeoPoint     (void) noexcept = default;
 #else
                                         ~GpGeoPoint     (void) noexcept = default;
-#endif//#if  (__cplusplus >= CPP_VERSION_20)
+#endif// #if  (__cplusplus >= CPP_VERSION_20)
 
     constexpr inline void               Reset           (void) noexcept;
 
@@ -135,4 +135,4 @@ constexpr GpGeoPoint    GpGeoPoint::SFromPoint2D (const GpPoint2d& aPoint) noexc
     return p;
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

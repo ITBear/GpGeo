@@ -24,7 +24,7 @@ GpGeoShapeDesc::~GpGeoShapeDesc (void) noexcept
 {
 }
 
-void    GpGeoShapeDesc::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aPropsOut)
+void    GpGeoShapeDesc::_SReflectCollectProps (GpReflectProp::SmallVecVal& aPropsOut)
 {
     {
         GpReflectPropFlags          f       = {GpReflectPropFlag::GENERATED_ONCE, GpReflectPropFlag::PRIMARY_KEY};
@@ -35,4 +35,4 @@ void    GpGeoShapeDesc::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aProp
     ?
 }
 */
-}//namespace GPlatform
+}// namespace GPlatform

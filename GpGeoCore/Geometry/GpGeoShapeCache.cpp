@@ -12,4 +12,4 @@ GpGeoShapeCache::~GpGeoShapeCache (void) noexcept
 {
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

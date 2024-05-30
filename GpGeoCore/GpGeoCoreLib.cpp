@@ -1,4 +1,4 @@
-#include "GpGeoCore.hpp"
+#include "GpGeoCoreLib.hpp"
 
 namespace GPlatform {
 

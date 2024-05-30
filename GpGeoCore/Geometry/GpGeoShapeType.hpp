@@ -15,4 +15,4 @@ GP_ENUM(GP_GEO_CORE_API, GpGeoShapeType,
     MIXED
 );
 
-}//namespace GPlatform
+}// namespace GPlatform

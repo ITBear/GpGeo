@@ -18,7 +18,7 @@ public:
     using value_type        = std::array<std::byte, 8>;
     using BitsCount         = std::tuple<size_bit_t/*lat*/, size_bit_t/*lon*/>;
     using HashLen2Bits      = std::array<BitsCount, 1 + 12>;
-    using AlphabetT         = std::array<char8_t, 32>;
+    using AlphabetT         = std::array<char, 32>;
     using OneOrVectorValT   = std::variant<GpGeoHash, GpGeoHash::C::Vec::Val>;
     using ZoneSizeT         = std::tuple<geo_lat_t, geo_lon_t>;
     using ZoneSizeWorldT    = std::array<ZoneSizeT, 1 + 12>;
@@ -27,15 +27,15 @@ public:
     constexpr inline            GpGeoHash           (void) noexcept;
     constexpr inline            GpGeoHash           (const GpGeoHash& aGeohash) noexcept;
     constexpr inline            GpGeoHash           (GpGeoHash&& aGeohash) noexcept;
-    constexpr inline            GpGeoHash           (const GpGeoPoint&  aPoint,
+    inline                      GpGeoHash           (const GpGeoPoint&  aPoint,
                                                      const size_t       aHashLength);
-    constexpr inline            GpGeoHash           (const GpGeoPoint&  aPoint,
+    inline                      GpGeoHash           (const GpGeoPoint&  aPoint,
                                                      const size_t       aHashLength,
                                                      const GpGeoAABB&   aWorldAABB);
-    constexpr inline            GpGeoHash           (const geo_lat_t    aLat,
+    inline                      GpGeoHash           (const geo_lat_t    aLat,
                                                      const geo_lon_t    aLon,
                                                      const size_t       aHashLength);
-    constexpr inline            GpGeoHash           (const geo_lat_t    aLat,
+    inline                      GpGeoHash           (const geo_lat_t    aLat,
                                                      const geo_lon_t    aLon,
                                                      const size_t       aHashLength,
                                                      const GpGeoAABB&   aWorldAABB);
@@ -46,7 +46,7 @@ public:
     constexpr inline            ~GpGeoHash          (void) noexcept;
 #else
     inline                      ~GpGeoHash          (void) noexcept;
-#endif//#if  (__cplusplus >= CPP_VERSION_20)
+#endif// #if  (__cplusplus >= CPP_VERSION_20)
 
     constexpr inline GpGeoHash& operator=           (const GpGeoHash& aGeohash) noexcept;
     constexpr inline GpGeoHash& operator=           (GpGeoHash&& aGeohash) noexcept;
@@ -58,8 +58,8 @@ public:
     constexpr u_int_64          ValueAsUI64         (void) const noexcept {return std::bit_cast<u_int_64>(iValue);}
     constexpr void              SetValueUI64        (const u_int_64 aValue) noexcept {iValue = std::bit_cast<value_type>(aValue);}
 
-    std::u8string               ToString            (const size_t aHashLength) const;
-    void                        FromString          (std::u8string_view aHashStr);
+    std::string                 ToString            (const size_t aHashLength) const;
+    void                        FromString          (std::string_view aHashStr);
 
     void                        UpdateLength        (const size_t aOldLength,
                                                      const size_t aNewLength);
@@ -93,7 +93,7 @@ public:
     static OneOrVectorValT      SFromAABB           (const GpGeoAABB&   aAABB,
                                                      const size_t       aHashLength,
                                                      const GpGeoAABB&   aWorldAABB);
-    inline static GpGeoHash     SFromString         (std::u8string_view aHashStr);
+    inline static GpGeoHash     SFromString         (std::string_view   aHashStr);
     static OneOrVectorValT      SMakeZones          (const GpGeoHash&   aMinPointGeoHash,
                                                      const GpGeoHash&   aMaxPointGeoHash,
                                                      const size_t       aHashLength);
@@ -143,7 +143,7 @@ iValue(aGeohash.iValue)
 {
 }
 
-constexpr GpGeoHash::GpGeoHash
+GpGeoHash::GpGeoHash
 (
     const GpGeoPoint&   aPoint,
     const size_t        aHashLength
@@ -152,7 +152,7 @@ constexpr GpGeoHash::GpGeoHash
     FromPoint(aPoint, aHashLength);
 }
 
-constexpr GpGeoHash::GpGeoHash
+GpGeoHash::GpGeoHash
 (
     const GpGeoPoint&   aPoint,
     const size_t        aHashLength,
@@ -162,7 +162,7 @@ constexpr GpGeoHash::GpGeoHash
     FromPoint(aPoint, aHashLength, aWorldAABB);
 }
 
-constexpr GpGeoHash::GpGeoHash
+GpGeoHash::GpGeoHash
 (
     const geo_lat_t aLat,
     const geo_lon_t aLon,
@@ -172,7 +172,7 @@ constexpr GpGeoHash::GpGeoHash
     FromPoint(aLat, aLon, aHashLength);
 }
 
-constexpr GpGeoHash::GpGeoHash
+GpGeoHash::GpGeoHash
 (
     const geo_lat_t     aLat,
     const geo_lon_t     aLon,
@@ -201,7 +201,7 @@ constexpr GpGeoHash::~GpGeoHash (void) noexcept
 GpGeoHash::~GpGeoHash (void) noexcept
 {
 }
-#endif//#if  (__cplusplus >= CPP_VERSION_20)
+#endif// #if  (__cplusplus >= CPP_VERSION_20)
 
 constexpr GpGeoHash&    GpGeoHash::operator= (const GpGeoHash& aGeohash) noexcept
 {
@@ -260,7 +260,7 @@ GpGeoAABB   GpGeoHash::ToAABB
     );
 }
 
-GpGeoHash   GpGeoHash::SFromString (std::u8string_view aHashStr)
+GpGeoHash   GpGeoHash::SFromString (std::string_view aHashStr)
 {
     GpGeoHash h;
     h.FromString(aHashStr);
@@ -344,7 +344,7 @@ constexpr   GpGeoHash::ZoneSizeT    GpGeoHash::SSizeOfZoneWorld (size_t aHashLen
     return SSizeOfZonesWorld().at(aHashLength);
 }
 
-}//namespace GPlatform
+}// namespace GPlatform
 
 //*******************************************
 namespace std {
@@ -359,5 +359,4 @@ struct hash<GPlatform::GpGeoHash>
     }
 };
 
-}//std
-
+}// namespace std

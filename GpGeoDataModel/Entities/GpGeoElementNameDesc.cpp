@@ -1,6 +1,7 @@
 #include "GpGeoElementNameDesc.hpp"
 
 #include <GpCore2/GpReflection/GpReflectManager.hpp>
+#include <GpCore2/GpReflection/GpReflectPropUtils.hpp>
 
 namespace GPlatform {
 
@@ -10,7 +11,7 @@ GpGeoElementNameDesc::~GpGeoElementNameDesc (void) noexcept
 {
 }
 
-void    GpGeoElementNameDesc::_SReflectCollectProps (GpReflectProp::C::Vec::Val& aPropsOut)
+void    GpGeoElementNameDesc::_SReflectCollectProps (GpReflectProp::SmallVecVal& aPropsOut)
 {
     PROP_F(id,          {GpReflectPropFlag::PRIMARY_KEY});
     PROP_F(language_id, {GpReflectPropFlag::PRIMARY_KEY});
@@ -19,4 +20,4 @@ void    GpGeoElementNameDesc::_SReflectCollectProps (GpReflectProp::C::Vec::Val&
     PROP  (name);
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

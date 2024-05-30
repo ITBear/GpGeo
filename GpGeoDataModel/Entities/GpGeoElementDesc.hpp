@@ -12,7 +12,7 @@ class GP_GEO_DATA_MODEL_API GpGeoElementDesc final: public GpReflectObject
 {
 public:
     CLASS_DD(GpGeoElementDesc)
-    REFLECT_DECLARE(u8"d767d127-5e8d-4359-593c-e177fc510fac"_uuid)
+    REFLECT_DECLARE("d767d127-5e8d-4359-593c-e177fc510fac"_uuid)
 
 public:
                         GpGeoElementDesc        (void) noexcept = default;
@@ -52,4 +52,4 @@ shape_id (std::move(aDesc.shape_id))
 }
 
 
-}//namespace GPlatform
+}// namespace GPlatform

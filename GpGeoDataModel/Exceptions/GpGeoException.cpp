@@ -4,4 +4,4 @@ namespace GPlatform {
 
 EXCEPTION_CODE_IMPL(GpGeoException)
 
-}//namespace GPlatform
+}// namespace GPlatform

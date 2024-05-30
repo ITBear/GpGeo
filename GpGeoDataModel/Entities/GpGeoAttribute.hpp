@@ -8,7 +8,7 @@ class GP_GEO_DATA_MODEL_API GpGeoAttribute final: public GpReflectObject
 {
 public:
     CLASS_DD(GpGeoAttribute)
-    REFLECT_DECLARE(u8"fd1c2250-ccb1-4208-19f5-a30f5b1fb041"_uuid)
+    REFLECT_DECLARE("fd1c2250-ccb1-4208-19f5-a30f5b1fb041"_uuid)
 
 public:
                         GpGeoAttribute      (void) noexcept;
@@ -25,4 +25,4 @@ public:
     s_int_64            shape_id = 0;
 };
 */
-}//namespace GPlatform
+}// namespace GPlatform

@@ -37,7 +37,7 @@ GpGeoPoint  GpGeoCoordinateConverter::SConvert (const GpGeoPoint& aPoint) noexce
             return SWgs84_To_WebMercator(aPoint);
         } else
         {
-            GpThrowCe<GpException>(u8"Unsupported TO GeoCoordinateSystem FROM WGS_84_EPSG_4326");
+            GpThrowCe<GpException>("Unsupported TO GeoCoordinateSystem FROM WGS_84_EPSG_4326");
         }
     } else if constexpr (FROM == GpGeoCoordinateSystem::WEB_MERCATOR_3857)
     {
@@ -49,11 +49,11 @@ GpGeoPoint  GpGeoCoordinateConverter::SConvert (const GpGeoPoint& aPoint) noexce
             return SWebMercator_To_Wgs84(aPoint);
         } else
         {
-            GpThrowCe<GpException>(u8"Unsupported TO GeoCoordinateSystem FROM WEB_MERCATOR_3857");
+            GpThrowCe<GpException>("Unsupported TO GeoCoordinateSystem FROM WEB_MERCATOR_3857");
         }
     } else
     {
-        GpThrowCe<GpException>(u8"Unsupported FROM GeoCoordinateSystem");
+        GpThrowCe<GpException>("Unsupported FROM GeoCoordinateSystem");
     }
 }
 
@@ -67,4 +67,4 @@ GpGeoPoint  GpGeoCoordinateConverter::SWebMercator_To_Wgs84 (const GpGeoPoint& a
     return GpGeoCC_Wgs84_WebMercator::CCBackward(aPoint);
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

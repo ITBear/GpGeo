@@ -16,12 +16,12 @@ public:
                                     GpGeoFormatEsriShapeManager     (void) = default;
     virtual                         ~GpGeoFormatEsriShapeManager    (void) noexcept override final;
 
-    virtual GpGeoShape::C::Vec::Val Read                            (std::u8string_view aFileName) override final;
+    virtual GpGeoShape::C::Vec::Val Read                            (std::string_view aFileName) override final;
     virtual void                    Write                           (const GpGeoShape::C::Vec::Val& aShapes,
-                                                                     std::u8string_view             aFileName) override final;
+                                                                     std::string_view               aFileName) override final;
 
 private:
     GpGeoShape                      ReadShape                       (SHPObject* aShapeObj) const;
 };
 
-}//namespace  GPlatform
+}// namespace  GPlatform

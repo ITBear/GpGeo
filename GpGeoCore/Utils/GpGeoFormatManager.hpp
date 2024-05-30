@@ -20,9 +20,9 @@ protected:
 public:
     virtual                         ~GpGeoFormatManager (void) noexcept = default;
 
-    virtual GpGeoShape::C::Vec::Val Read                (std::u8string_view aFileName) = 0;
+    virtual GpGeoShape::C::Vec::Val Read                (std::string_view aFileName) = 0;
     virtual void                    Write               (const GpGeoShape::C::Vec::Val& aShapes,
-                                                         std::u8string_view             aFileName) = 0;
+                                                         std::string_view               aFileName) = 0;
 };
 
-}//namespace  GPlatform
+}// namespace  GPlatform

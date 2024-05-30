@@ -16,13 +16,13 @@ GpGeoShapeType::EnumT   GpGeoShape::Type (void) const noexcept
         if (points.empty())
         {
             contourType = GpGeoShapeType::UNKNOWN;
-        } else if (points.size() == 1)
+        } else if (std::size(points) == 1)
         {
             contourType = GpGeoShapeType::POINTS;
-        } else if (points[0] != points[points.size()-1])
+        } else if (points[0] != points[std::size(points)-1])
         {
             contourType = GpGeoShapeType::LINES;
-        } else //if (points[0] == points[points.size()-1])
+        } else //if (points[0] == points[std::size(points)-1])
         {
             contourType = GpGeoShapeType::POLYGONS;
         }
@@ -65,7 +65,7 @@ GpGeoShape::PointsLatLonT   GpGeoShape::CollectPointsLatLon (void) const
     size_t contourId    = 0;
 
     std::vector<size_t> contoursSize;
-    contoursSize.resize(iContours.size());
+    contoursSize.resize(std::size(iContours));
 
     for (const GpGeoPolyline& contour: iContours)
     {
@@ -120,9 +120,9 @@ GpGeoShape::C::Vec::Val GpGeoShape::Intersect
         case GpGeoShapeType::POINTS:    return {_IntersectPoints(aAABB)};
         case GpGeoShapeType::LINES:     return {_IntersectLines(aAABB, aCache)};
         case GpGeoShapeType::POLYGONS:  return _IntersectPolygons(aAABB, aCache);
-        case GpGeoShapeType::MIXED:     THROW_GP(u8"Unsupported shape type GpGeoShapeType::MIXED"_sv);
+        case GpGeoShapeType::MIXED:     THROW_GP("Unsupported shape type GpGeoShapeType::MIXED"_sv);
         case GpGeoShapeType::UNKNOWN: [[fallthrough]];
-        default:                        THROW_GP(u8"Unknown shape type"_sv);
+        default:                        THROW_GP("Unknown shape type"_sv);
     }
 
     return {};
@@ -170,7 +170,7 @@ GpGeoShape  GpGeoShape::_IntersectLines
     GpGeoShape                  resShape;
     GpGeoPolyline::C::Vec::Val& resContours = resShape.Contours();
 
-    const size_t contoursCount = iContours.size();
+    const size_t contoursCount = std::size(iContours);
 
     for (size_t contourId = 0; contourId < contoursCount; contourId++)
     {
@@ -184,7 +184,7 @@ GpGeoShape  GpGeoShape::_IntersectLines
         std::vector<Boost_LinestringT> resPolylines;
         if (boost::geometry::intersection(polyline, aabb, resPolylines))
         {
-            resContours.reserve(resContours.size() + resPolylines.size());
+            resContours.reserve(std::size(resContours) + std::size(resPolylines));
 
             for (const Boost_LinestringT& resLine: resPolylines)
             {
@@ -210,7 +210,7 @@ GpGeoShape::C::Vec::Val GpGeoShape::_IntersectPolygons
 
     if (aCache.Impl().iIsFill == false)
     {
-        const size_t contoursCount = iContours.size();
+        const size_t contoursCount = std::size(iContours);
 
         for (size_t contourId = 0; contourId < contoursCount; contourId++)
         {
@@ -236,14 +236,14 @@ GpGeoShape::C::Vec::Val GpGeoShape::_IntersectPolygons
     if (boost::geometry::intersection(aCache.Impl().iPolygon, aabb, resPolygons))
     {
         GpGeoShape::C::Vec::Val resShapes;
-        resShapes.resize(resPolygons.size());
+        resShapes.resize(std::size(resPolygons));
         size_t resShapeId = 0;
 
         for (const Boost_PolygonT& resPolygon: resPolygons)
         {
             GpGeoShape&                 resShape    = resShapes[resShapeId++];
             GpGeoPolyline::C::Vec::Val& resContours = resShape.Contours();
-            resContours.resize(1/*outer*/ + resPolygon.inners().size());
+            resContours.resize(1/*outer*/ + std::size(resPolygon.inners()));
 
             size_t contourId = 0;
 
@@ -262,4 +262,4 @@ GpGeoShape::C::Vec::Val GpGeoShape::_IntersectPolygons
     }
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

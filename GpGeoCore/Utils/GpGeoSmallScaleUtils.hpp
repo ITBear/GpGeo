@@ -87,7 +87,7 @@ GpGeoSmallScaleUtils::NearestPointRes   GpGeoSmallScaleUtils::SNearestPoint
 )
 {
     const GpGeoPoint::C::Vec::Val&  points      = aPolyline.Points();
-    const size_t                    pointsCount = points.size();
+    const size_t                    pointsCount = std::size(points);
 
     THROW_COND_GP
     (
@@ -164,4 +164,4 @@ GpGeoSmallScaleUtils::NearestPointContourRes    GpGeoSmallScaleUtils::SNearestPo
     return res;
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

@@ -62,4 +62,4 @@ GpGeoAABB   GpGeoAABB::SFromPointAndR
     );
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

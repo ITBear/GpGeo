@@ -14,18 +14,18 @@ const GpGeoHash::AlphabetT      GpGeoHash::sAlphabet =
     '0','1','2','3','4','5','6','7','8','9','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z'
 };
 
-std::u8string   GpGeoHash::ToString (const size_t aHashLength) const
+std::string GpGeoHash::ToString (const size_t aHashLength) const
 {
     THROW_COND_GP
     (
         (aHashLength >= 1) && (aHashLength <= 12),
-        u8"aHashLength is out of range [1..12]"_sv
+        "aHashLength is out of range [1..12]"_sv
     );
 
-    std::u8string hashStr;
+    std::string hashStr;
     hashStr.resize(aHashLength);
 
-    char8_t* hashStrChar = hashStr.data();
+    char* hashStrChar = std::data(hashStr);
     hashStrChar += (aHashLength - 1);
 
     u_int_64 hash = ValueAsUI64();
@@ -41,37 +41,37 @@ std::u8string   GpGeoHash::ToString (const size_t aHashLength) const
     return hashStr;
 }
 
-void    GpGeoHash::FromString (std::u8string_view aHashStr)
+void    GpGeoHash::FromString (std::string_view aHashStr)
 {
     const size_t    hashStrLen  = aHashStr.length();
-    const char8_t*  hashStrChar = aHashStr.data();
+    const char*     hashStrChar = std::data(aHashStr);
 
     u_int_64 hash = 0;
 
     for (size_t i = 0; i < hashStrLen; i++)
     {
-        const char8_t   ch          = *hashStrChar++;
+        const char      ch          = *hashStrChar++;
         const u_int_64  chInt       = u_int_64(ch);
         u_int_64        hashPart    = 0;
 
-        if (NumOps::SIsBetween(ch, u8'0', u8'9'))
+        if (NumOps::SIsBetween(ch, '0', '9'))
         {
             hashPart = u_int_64(0) + chInt - u_int_64('0');
-        } else if (NumOps::SIsBetween(ch, u8'b', u8'h'))
+        } else if (NumOps::SIsBetween(ch, 'b', 'h'))
         {
             hashPart = u_int_64(10) + chInt - u_int_64('b');
-        } else if (NumOps::SIsBetween(ch, u8'j', u8'k'))
+        } else if (NumOps::SIsBetween(ch, 'j', 'k'))
         {
             hashPart = u_int_64(17) + chInt - u_int_64('j');
-        } else if (NumOps::SIsBetween(ch, u8'm', u8'n'))
+        } else if (NumOps::SIsBetween(ch, 'm', 'n'))
         {
             hashPart = u_int_64(19) + chInt - u_int_64('m');
-        } else if (NumOps::SIsBetween(ch, u8'p', u8'z'))
+        } else if (NumOps::SIsBetween(ch, 'p', 'z'))
         {
             hashPart = u_int_64(21) + chInt - u_int_64('p');
         } else
         {
-            THROW_GP(u8"Wrong geohash value '"_sv + aHashStr + u8"', wrong character "_sv + std::u8string(&ch, 1));
+            THROW_GP("Wrong geohash value '"_sv + aHashStr + "', wrong character "_sv + std::string(&ch, 1));
         }
 
         hash <<= 5;
@@ -90,13 +90,13 @@ void    GpGeoHash::UpdateLength
     THROW_COND_GP
     (
         (aOldLength >= 1) && (aOldLength <= 12),
-        u8"aOldLength is out of range [1..12]"_sv
+        "aOldLength is out of range [1..12]"_sv
     );
 
     THROW_COND_GP
     (
         (aNewLength >= 1) && (aNewLength <= 12),
-        u8"aNewLength is out of range [1..12]"_sv
+        "aNewLength is out of range [1..12]"_sv
     );
 
     if (aOldLength == aNewLength)
@@ -120,7 +120,7 @@ std::array<GpGeoHash, 9>    GpGeoHash::Neighbours (const size_t aHashLength) con
     THROW_COND_GP
     (
         (aHashLength >= 1) && (aHashLength <= 12),
-        u8"aHashLength is out of range [1..12]"_sv
+        "aHashLength is out of range [1..12]"_sv
     );
 
     const GpGeoAABB     thisAabb    = ToAABB(aHashLength);
@@ -166,7 +166,7 @@ GpGeoHash::OneOrVectorValT  GpGeoHash::Neighbours
     THROW_COND_GP
     (
         (aHashLength >= 1) && (aHashLength <= 12),
-        u8"aHashLength is out of range [1..12]"_sv
+        "aHashLength is out of range [1..12]"_sv
     );
 
     const GpGeoAABB     thisAabb    = ToAABB(aHashLength);
@@ -426,7 +426,7 @@ double  GpGeoHash::SDecode
 
     const size_t bitsCount = aBitsCount.Value();
 
-    size_t bitsMask = 1 << (bitsCount - 1);
+    size_t bitsMask = size_t(1) << size_t(bitsCount - 1);
 
     for (size_t i = 0; i < bitsCount; i++)
     {
@@ -446,4 +446,4 @@ double  GpGeoHash::SDecode
     return mid;
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

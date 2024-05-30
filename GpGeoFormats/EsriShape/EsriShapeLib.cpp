@@ -1,4 +1,4 @@
-#include "EsriShape.hpp"
+#include "EsriShapeLib.hpp"
 
 namespace GPlatform {
 

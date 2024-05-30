@@ -35,7 +35,7 @@ public:
     inline GpGeoPolyline&   operator=           (const GpGeoPolyline& aContour);
     inline GpGeoPolyline&   operator=           (GpGeoPolyline&& aContour) noexcept;
 
-    size_t                  PointsCount         (void) const noexcept {return iPoints.size();}
+    size_t                  PointsCount         (void) const noexcept {return std::size(iPoints);}
 
     const PointsT&          Points              (void) const noexcept {return iPoints;}
     PointsT&                Points              (void) noexcept {return iPoints;}
@@ -85,4 +85,4 @@ GpGeoPolyline&  GpGeoPolyline::operator= (GpGeoPolyline&& aContour) noexcept
     return *this;
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

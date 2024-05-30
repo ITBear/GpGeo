@@ -1,36 +1,36 @@
+# ----------- Config -----------
 TEMPLATE        = lib
-#CONFIG         += staticlib
-VER_MAJ		    = 2
-VER_MIN		    = 1
-VER_PAT		    = 4
-QMAKE_CXXFLAGS += -DGP_MODULE_UUID=125782a6-e9c7-4235-c7a8-fbb76a1730da
+#CONFIG        += staticlib
 QMAKE_CXXFLAGS += -DGP_REFLECTION_STATIC_ADD_TO_MANAGER
+QMAKE_CXXFLAGS += -DGP_MODULE_UUID=125782a6-e9c7-4235-c7a8-fbb76a1730da
 PACKET_NAME     = GpGeoFormatsEsriShape
+DEFINES        += GP_GEO_FORMATS_ESRI_SHAPE_LIBRARY
+_VER_MAJ        = 2
+_VER_MIN        = 1
+_VER_PAT        = 5
 DIR_LEVEL       = ./../../..
 
-DEFINES		   += GP_GEO_FORMATS_ESRI_SHAPE_LIBRARY
-DEFINES        += "GP_CURRENT_LIB_VER_MAJ=\\\"$$VER_MAJ\\\""
-DEFINES        += "GP_CURRENT_LIB_VER_MIN=\\\"$$VER_MIN\\\""
-DEFINES        += "GP_CURRENT_LIB_VER_PAT=\\\"$$VER_PAT\\\""
-DEFINES        += "GP_CURRENT_LIB_PACKET_NAME=\\\"$$PACKET_NAME\\\""
+include($$DIR_LEVEL/../QtGlobalPro.pri)
 
-include(../../../../QtGlobalPro.pri)
-
-#------------------------------ LIBS BEGIN ---------------------------------
+# ----------- Libraries -----------
 os_windows{
+	LIBS += -lGpGeoCore$$TARGET_POSTFIX
+	LIBS += -lGpUtils$$TARGET_POSTFIX
+
+	LIBS += -lshp
 }
 
 os_linux{
 }
-#------------------------------- LIBS END ----------------------------------
 
+# ----------- Sources and headers -----------
 SOURCES += \
-	EsriShape.cpp \
+	EsriShapeLib.cpp \
 	GpGeoFormatEsriShapeManager.cpp \
 	GpGeoFormatEsriShapeManagerFactory.cpp
 
 HEADERS += \
-	EsriShape.hpp \
+	EsriShapeLib.hpp \
 	EsriShape_global.hpp \
 	GpGeoFormatEsriShapeManager.hpp \
 	GpGeoFormatEsriShapeManagerFactory.hpp

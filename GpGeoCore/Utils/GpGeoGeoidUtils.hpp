@@ -65,4 +65,4 @@ angle_rad_t GpGeoGeoidUtils::SMetersToLatAngle
     return angle_rad_t::SMake(2.0*M_PI*aDistance.Value() / l);
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

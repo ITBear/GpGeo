@@ -18,4 +18,4 @@ public:
     virtual GpGeoFormatManager::SP  NewInstance                         (void) const override final;
 };
 
-}//namespace  GPlatform
+}// namespace  GPlatform

@@ -11,4 +11,4 @@ GP_ENUM(GP_GEO_DATA_MODEL_API, GpGeoExceptionCode,
 
 );
 
-}//namespace GPlatform
+}// namespace GPlatform

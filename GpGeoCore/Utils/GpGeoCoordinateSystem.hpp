@@ -12,4 +12,4 @@ GP_ENUM(GP_GEO_CORE_API, GpGeoCoordinateSystem,
     WEB_MERCATOR_3857   //3857 (https://epsg.io/3857)
 );
 
-}//namespace GPlatform
+}// namespace GPlatform

@@ -1,29 +1,26 @@
+# ----------- Config -----------
 TEMPLATE        = lib
-#CONFIG         += staticlib
-VER_MAJ		    = 2
-VER_MIN		    = 1
-VER_PAT		    = 4
-QMAKE_CXXFLAGS += -DGP_MODULE_UUID=c3d3f469-2327-47aa-b6d0-951ff923bcff
+#CONFIG        += staticlib
 QMAKE_CXXFLAGS += -DGP_REFLECTION_STATIC_ADD_TO_MANAGER
+QMAKE_CXXFLAGS += -DGP_MODULE_UUID=c3d3f469-2327-47aa-b6d0-951ff923bcff
 PACKET_NAME     = GpGeoCore
+DEFINES        += GP_GEO_CORE_LIBRARY
+_VER_MAJ        = 2
+_VER_MIN        = 1
+_VER_PAT        = 5
 DIR_LEVEL       = ./../..
 
-DEFINES		   += GP_GEO_CORE_LIBRARY
-DEFINES        += "GP_CURRENT_LIB_VER_MAJ=\\\"$$VER_MAJ\\\""
-DEFINES        += "GP_CURRENT_LIB_VER_MIN=\\\"$$VER_MIN\\\""
-DEFINES        += "GP_CURRENT_LIB_VER_PAT=\\\"$$VER_PAT\\\""
-DEFINES        += "GP_CURRENT_LIB_PACKET_NAME=\\\"$$PACKET_NAME\\\""
+include($$DIR_LEVEL/../QtGlobalPro.pri)
 
-include(../../../QtGlobalPro.pri)
-
-#------------------------------ LIBS BEGIN ---------------------------------
+# ----------- Libraries -----------
 os_windows{
+	LIBS += -lGpUtils$$TARGET_POSTFIX
 }
 
 os_linux{
 }
-#------------------------------- LIBS END ----------------------------------
 
+# ----------- Sources and headers -----------
 SOURCES += \
 	Geometry/GpGeoAABB.cpp \
 	Geometry/GpGeoHash.cpp \
@@ -31,7 +28,7 @@ SOURCES += \
 	Geometry/GpGeoShape.cpp \
 	Geometry/GpGeoShapeCache.cpp \
 	Geometry/GpGeoShapeType.cpp \
-	GpGeoCore.cpp \
+	GpGeoCoreLib.cpp \
 	Utils/GpGeoCoordinateSystem.cpp \
 	Utils/GpGeoSmallScaleUtils.cpp \
 	Utils/GpGeoToString.cpp
@@ -46,7 +43,7 @@ HEADERS += \
 	Geometry/GpGeoShapeCache.hpp \
 	Geometry/GpGeoShapeCacheImpl.hpp \
 	Geometry/GpGeoShapeType.hpp \
-	GpGeoCore.hpp \
+	GpGeoCoreLib.hpp \
 	GpGeoCore_global.hpp \
 	Units/GpGeoUnits.hpp \
 	Units/GpLatitude.hpp \

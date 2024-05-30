@@ -4,4 +4,4 @@ namespace GPlatform {
 
 GP_ENUM_IMPL(GpGeoShapeType)
 
-}//namespace GPlatform
+}// namespace GPlatform

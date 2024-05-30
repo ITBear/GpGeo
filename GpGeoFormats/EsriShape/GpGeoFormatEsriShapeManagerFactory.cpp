@@ -12,4 +12,4 @@ GpGeoFormatManager::SP  GpGeoFormatEsriShapeManagerFactory::NewInstance (void) c
     return MakeSP<GpGeoFormatEsriShapeManager>();
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

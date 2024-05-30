@@ -19,4 +19,4 @@ private:
     std::unique_ptr<GpGeoShapeCacheImpl>    iImpl;
 };
 
-}//namespace GPlatform
+}// namespace GPlatform

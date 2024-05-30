@@ -32,7 +32,7 @@ public:
     constexpr                           ~GpGeoAABB          (void) noexcept = default;
 #else
                                         ~GpGeoAABB          (void) noexcept = default;
-#endif//#if  (__cplusplus >= CPP_VERSION_20)
+#endif// #if  (__cplusplus >= CPP_VERSION_20)
 
     constexpr const GpAabb2d&           _InnerAABB          (void) const noexcept {return iAABB;}
 
@@ -279,4 +279,4 @@ std::array<GpGeoPoint, 4>   GpGeoAABB::ToPoints (void) const noexcept
     };
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

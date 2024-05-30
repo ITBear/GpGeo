@@ -16,4 +16,4 @@ public:
     static constexpr meters_t   SEquatorialRadius   (void) noexcept {return meters_t::SMake(6378137.0);}
 };
 
-}//namespace GPlatform
+}// namespace GPlatform

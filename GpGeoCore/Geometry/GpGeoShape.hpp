@@ -98,4 +98,4 @@ GpGeoShape& GpGeoShape::AddContour (GpGeoPolyline&& aContour)
     return *this;
 }
 
-}//namespace GPlatform
+}// namespace GPlatform

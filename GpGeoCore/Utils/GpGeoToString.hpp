@@ -10,7 +10,7 @@ public:
     CLASS_REMOVE_CTRS_DEFAULT_MOVE_COPY(GpGeoToString)
 
 public:
-    static std::u8string    SToString   (const GpGeoShape& aShape);
+    static std::string  SToString   (const GpGeoShape& aShape);
 };
 
-}//namespace GPlatform
+}// namespace GPlatform

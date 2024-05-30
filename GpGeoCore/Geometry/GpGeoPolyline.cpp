@@ -7,7 +7,7 @@ namespace GPlatform {
 GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoints)
 {
     GpGeoPoint::C::Vec::Val geopoints;
-    geopoints.reserve(aPoints.size());
+    geopoints.reserve(std::size(aPoints));
 
     for (const GpPoint2d& p: aPoints)
     {
@@ -24,7 +24,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
 )
 {
     const PointsT&  points      = aPolyline.Points();
-    const size_t    pointsCount = points.size();
+    const size_t    pointsCount = std::size(points);
 
     if (pointsCount == 0)
     {
@@ -54,7 +54,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
 )
 {
     const PointsT&  points      = aPolyline.Points();
-    const size_t    pointsCount = points.size();
+    const size_t    pointsCount = std::size(points);
 
     if (pointsCount == 0)
     {
@@ -176,7 +176,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
 )
 {
     const PointsT&  points      = aPolyline.Points();
-    const size_t    pointsCount = points.size();
+    const size_t    pointsCount = std::size(points);
 
     if (pointsCount == 0)
     {
@@ -222,7 +222,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
         for (const GpPolyline2d& p: resPolygons)
         {
             const std::vector<GpPoint2d>&   _points         = p.Points();
-            const size_t                    _pointsCount    = _points.size();
+            const size_t                    _pointsCount    = std::size(_points);
 
             GpGeoPolyline gp;
             GpGeoPoint::C::Vec::Val&        gpPoints    = gp.Points();
@@ -280,7 +280,7 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
 {
     const std::array<GpGeoPoint, 4> aabbPoints          = aAABB.ToPoints();
     const GpGeoPoint::C::Vec::Val&  polygonPoints       = aContour.Points();
-    const size_t                    polygonPointsCount  = polygonPoints.size();
+    const size_t                    polygonPointsCount  = std::size(polygonPoints);
 
     // Test axes of the polygon
     for (size_t pointId = 0; i < polygonPointsCount; pointId++)
@@ -301,10 +301,10 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
     }
 
     // Test axes of the AABB
-    for (size_t pointId = 0; pointId < aabbPoints.size(); pointId++)
+    for (size_t pointId = 0; pointId < std::size(aabbPoints); pointId++)
     {
         const GpGeoPoint&   pointA  = aabbPoints[pointId];
-        const GpGeoPoint&   pointB  = aabbPoints[(pointId + 1) % aabbPoints.size()];
+        const GpGeoPoint&   pointB  = aabbPoints[(pointId + 1) % std::size(aabbPoints)];
         const GpGeoPoint    edge    = pointB - pointA;
         const GpGeoPoint    axis    = GpGeoPoint(geo_lat_t::SMake(-edge.Lon().Value()), geo_lon_t::SMake(edge.Lat()));
 
@@ -321,4 +321,4 @@ GpGeoPolyline   GpGeoPolyline::SFrom2DPoints (const GpPoint2d::C::Vec::Val& aPoi
     return true;
 */
 
-}//namespace GPlatform
+}// namespace GPlatform
