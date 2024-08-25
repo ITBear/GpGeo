@@ -223,7 +223,13 @@ GpGeoShape::C::Vec::Val GpGeoShape::_IntersectPolygons
                 boost::geometry::append(aCache.Impl().iPolygon, points);
             } else
             {
-                aCache.Impl().iPolygon.inners().emplace_back(reinterpret_cast<const Boost_PolygonT::ring_type&>(points));
+                aCache.Impl().iPolygon.inners().emplace_back
+                (
+                    *reinterpret_cast<const Boost_PolygonT::ring_type*>
+                    (
+                        reinterpret_cast<const void*>(&points)
+                    )
+                );
             }
 
             boost::geometry::correct(aCache.Impl().iPolygon);

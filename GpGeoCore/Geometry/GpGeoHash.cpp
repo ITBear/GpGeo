@@ -43,7 +43,7 @@ std::string GpGeoHash::ToString (const size_t aHashLength) const
 
 void    GpGeoHash::FromString (std::string_view aHashStr)
 {
-    const size_t    hashStrLen  = aHashStr.length();
+    const size_t    hashStrLen  = std::size(aHashStr);
     const char*     hashStrChar = std::data(aHashStr);
 
     u_int_64 hash = 0;

@@ -1,16 +1,19 @@
 # ----------- Config -----------
 TEMPLATE        = lib
-#CONFIG        += staticlib
 QMAKE_CXXFLAGS += -DGP_REFLECTION_STATIC_ADD_TO_MANAGER
 QMAKE_CXXFLAGS += -DGP_MODULE_UUID=125782a6-e9c7-4235-c7a8-fbb76a1730da
 PACKET_NAME     = GpGeoFormatsEsriShape
 DEFINES        += GP_GEO_FORMATS_ESRI_SHAPE_LIBRARY
 _VER_MAJ        = 2
 _VER_MIN        = 1
-_VER_PAT        = 5
+_VER_PAT        = 6
 DIR_LEVEL       = ./../../..
 
 include($$DIR_LEVEL/../QtGlobalPro.pri)
+
+release_build_static{
+	CONFIG += staticlib
+}
 
 # ----------- Libraries -----------
 os_windows{
