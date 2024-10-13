@@ -1,7 +1,7 @@
 #pragma once
 
-#include "GpGeoPoint.hpp"
-#include "../../../GpGeometry/GpGeometryCore/GpAabb2d.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPoint.hpp>
+#include <GpGeometry/GpGeometryCore/GpAabb2d.hpp>
 
 namespace GPlatform {
 

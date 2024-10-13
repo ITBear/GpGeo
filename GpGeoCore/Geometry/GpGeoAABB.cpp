@@ -1,7 +1,7 @@
-#include "GpGeoAABB.hpp"
-#include "GpGeoShape.hpp"
-#include "GpGeoPolyline.hpp"
-#include "../Utils/GpGeoGeoidUtils.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoAABB.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShape.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPolyline.hpp>
+#include <GpGeo/GpGeoCore/Utils/GpGeoGeoidUtils.hpp>
 
 namespace GPlatform {
 

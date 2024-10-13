@@ -1,6 +1,6 @@
-#include "GpGeoPolyline.hpp"
-#include "GpGeoAABB.hpp"
-#include "../../../GpGeometry/GpGeometryCore/Algorithms/GpGeometryIntersectAlgo2d.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPolyline.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoAABB.hpp>
+#include <GpGeometry/GpGeometryCore/Algorithms/GpGeometryIntersectAlgo2d.hpp>
 
 namespace GPlatform {
 

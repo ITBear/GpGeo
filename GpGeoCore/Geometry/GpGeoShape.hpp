@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GpGeoPolyline.hpp"
-#include "GpGeoAABB.hpp"
-#include "GpGeoShapeType.hpp"
-#include "GpGeoShapeCache.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPolyline.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoAABB.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShapeType.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShapeCache.hpp>
 
 namespace GPlatform {
 
@@ -60,17 +60,17 @@ GpGeoShape::GpGeoShape (void) noexcept
 }
 
 GpGeoShape::GpGeoShape (const GpGeoShape& aShape):
-iContours(aShape.iContours)
+iContours{aShape.iContours}
 {
 }
 
 GpGeoShape::GpGeoShape (GpGeoShape&& aShape) noexcept:
-iContours(std::move(aShape.iContours))
+iContours{std::move(aShape.iContours)}
 {
 }
 
 GpGeoShape::GpGeoShape (ContoursT aContours) noexcept:
-iContours(std::move(aContours))
+iContours{std::move(aContours)}
 {
 }
 

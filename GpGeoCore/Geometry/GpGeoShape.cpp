@@ -1,5 +1,5 @@
-#include "GpGeoShape.hpp"
-#include "GpGeoShapeCacheImpl.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShape.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShapeCacheImpl.hpp>
 
 namespace GPlatform {
 

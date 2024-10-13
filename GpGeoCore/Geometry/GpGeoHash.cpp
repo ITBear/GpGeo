@@ -1,5 +1,4 @@
-#include "GpGeoHash.hpp"
-
+#include <GpGeo/GpGeoCore/Geometry/GpGeoHash.hpp>
 #include <GpCore2/GpUtils/Types/Strings/GpStringLiterals.hpp>
 #include <GpCore2/GpUtils/Types/Strings/GpStringOps.hpp>
 #include <GpCore2/GpUtils/Types/Bits/GpBitOps.hpp>

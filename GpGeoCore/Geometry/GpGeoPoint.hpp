@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Units/GpGeoUnits.hpp"
-#include "../Utils/GpGeoConstants.hpp"
-
+#include <GpGeo/GpGeoCore/Utils/GpGeoConstants.hpp>
+#include <GpGeo/GpGeoCore/Units/GpLatitude.hpp>
+#include <GpGeo/GpGeoCore/Units/GpLongitude.hpp>
 #include <GpCore2/GpUtils/Types/Containers/GpContainersT.hpp>
 #include <GpGeometry/GpGeometryCore/GpPoint2d.hpp>
 
@@ -52,14 +52,14 @@ private:
 };
 
 constexpr GpGeoPoint::GpGeoPoint (const GpGeoPoint& aPoint) noexcept:
-iLat(aPoint.iLat),
-iLon(aPoint.iLon)
+iLat{aPoint.iLat},
+iLon{aPoint.iLon}
 {
 }
 
 constexpr GpGeoPoint::GpGeoPoint (GpGeoPoint&& aPoint) noexcept:
-iLat(std::move(aPoint.iLat)),
-iLon(std::move(aPoint.iLon))
+iLat{std::move(aPoint.iLat)},
+iLon{std::move(aPoint.iLon)}
 {
 }
 
@@ -68,8 +68,8 @@ constexpr GpGeoPoint::GpGeoPoint
     const geo_lat_t aLat,
     const geo_lon_t aLon
 ) noexcept:
-iLat(aLat),
-iLon(aLon)
+iLat{aLat},
+iLon{aLon}
 {
 }
 

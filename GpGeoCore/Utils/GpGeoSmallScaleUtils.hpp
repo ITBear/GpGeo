@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../Geometry/GpGeoGeometry.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPoint.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPolyline.hpp>
+#include <GpGeometry/GpGeometryCore/Algorithms/GpGeometryAlgo2d.hpp>
 
 namespace GPlatform {
 

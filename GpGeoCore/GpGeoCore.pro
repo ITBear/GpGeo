@@ -11,16 +11,17 @@ DIR_LEVEL       = ./../..
 
 include($$DIR_LEVEL/../QtGlobalPro.pri)
 
-release_build_static{
+equals(var_link, "static") {
 	CONFIG += staticlib
 }
 
 # ----------- Libraries -----------
-os_windows{
+equals(var_os, "windows") {
 	LIBS += -lGpUtils$$TARGET_POSTFIX
 }
 
-os_linux{
+equals(var_os, "linux") {
+	LIBS += -lGpUtils$$TARGET_POSTFIX
 }
 
 # ----------- Sources and headers -----------
@@ -38,7 +39,6 @@ SOURCES += \
 
 HEADERS += \
 	Geometry/GpGeoAABB.hpp \
-	Geometry/GpGeoGeometry.hpp \
 	Geometry/GpGeoHash.hpp \
 	Geometry/GpGeoPoint.hpp \
 	Geometry/GpGeoPolyline.hpp \
@@ -48,7 +48,6 @@ HEADERS += \
 	Geometry/GpGeoShapeType.hpp \
 	GpGeoCoreLib.hpp \
 	GpGeoCore_global.hpp \
-	Units/GpGeoUnits.hpp \
 	Units/GpLatitude.hpp \
 	Units/GpLongitude.hpp \
 	Utils/CoordinateConverters/GpGeoCC_Wgs84_WebMercator.hpp \
