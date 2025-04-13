@@ -120,9 +120,9 @@ GpGeoShape::C::Vec::Val GpGeoShape::Intersect
         case GpGeoShapeType::POINTS:    return {_IntersectPoints(aAABB)};
         case GpGeoShapeType::LINES:     return {_IntersectLines(aAABB, aCache)};
         case GpGeoShapeType::POLYGONS:  return _IntersectPolygons(aAABB, aCache);
-        case GpGeoShapeType::MIXED:     THROW_GP("Unsupported shape type GpGeoShapeType::MIXED"_sv);
+        case GpGeoShapeType::MIXED:     THROW("Unsupported shape type GpGeoShapeType::MIXED"_sv);
         case GpGeoShapeType::UNKNOWN: [[fallthrough]];
-        default:                        THROW_GP("Unknown shape type"_sv);
+        default:                        THROW("Unknown shape type"_sv);
     }
 
     return {};

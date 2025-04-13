@@ -17,8 +17,8 @@ equals(var_link, "static") {
 
 # ----------- Libraries -----------
 equals(var_os, "windows") {
-	LIBS += -lGpGeoCore$$TARGET_POSTFIX
-	LIBS += -lGpUtils$$TARGET_POSTFIX
+	LIBS += -lGpGeoCore$$TARGET_POSTFIX$$_VER_MAJ
+	LIBS += -lGpUtils$$TARGET_POSTFIX$$_VER_MAJ
 
 	LIBS += -lshp
 }

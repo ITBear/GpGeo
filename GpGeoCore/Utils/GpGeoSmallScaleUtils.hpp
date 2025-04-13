@@ -91,7 +91,7 @@ GpGeoSmallScaleUtils::NearestPointRes   GpGeoSmallScaleUtils::SNearestPoint
     const GpGeoPoint::C::Vec::Val&  points      = aPolyline.Points();
     const size_t                    pointsCount = std::size(points);
 
-    THROW_COND_GP
+    VERIFY
     (
         pointsCount > 0,
         "Points count is zero"_sv

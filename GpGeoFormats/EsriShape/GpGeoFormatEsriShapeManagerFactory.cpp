@@ -1,5 +1,5 @@
-#include "GpGeoFormatEsriShapeManagerFactory.hpp"
-#include "GpGeoFormatEsriShapeManager.hpp"
+#include <GpGeo/GpGeoFormats/EsriShape/GpGeoFormatEsriShapeManagerFactory.hpp>
+#include <GpGeo/GpGeoFormats/EsriShape/GpGeoFormatEsriShapeManager.hpp>
 
 namespace GPlatform {
 

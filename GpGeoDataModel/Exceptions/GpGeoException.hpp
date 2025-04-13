@@ -1,7 +1,6 @@
 #pragma once
 
-#include "GpGeoExceptionCode.hpp"
-
+#include <GpGeo/GpGeoDataModel/Exceptions/GpGeoExceptionCode.hpp>
 #include <GpCore2/GpUtils/Exceptions/GpExceptionCode.hpp>
 
 namespace GPlatform {

@@ -1,4 +1,4 @@
-#include "GpGeoShapeType.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShapeType.hpp>
 
 namespace GPlatform {
 

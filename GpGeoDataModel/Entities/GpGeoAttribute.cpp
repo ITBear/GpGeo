@@ -1,4 +1,4 @@
-#include "GpGeoAttribute.hpp"
+#include <GpGeo/GpGeoDataModel/Entities/GpGeoAttribute.hpp>
 
 namespace GPlatform {
 

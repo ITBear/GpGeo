@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../GpGeoCore_global.hpp"
+#include <GpGeo/GpGeoCore/GpGeoCore_global.hpp>
 #include <memory>
 
 namespace GPlatform {

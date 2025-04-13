@@ -1,5 +1,4 @@
-#include "GpGeoFormatEsriShapeManager.hpp"
-
+#include <GpGeo/GpGeoFormats/EsriShape/GpGeoFormatEsriShapeManager.hpp>
 #include <GpCore2/GpUtils/Other/GpRAIIonDestruct.hpp>
 #include <iostream>
 
@@ -14,19 +13,16 @@ GpGeoShape::C::Vec::Val GpGeoFormatEsriShapeManager::Read (std::string_view aFil
     const std::string fileName(aFileName);
     SHPHandle shpHandle = SHPOpen(std::data(fileName), "rb");
 
-    THROW_COND_GP
+    VERIFY
     (
         shpHandle != nullptr,
         [aFileName](){return "ESRI shape file '"_sv + aFileName + "' was not found"_sv;}
     );
 
-    GpRAIIonDestruct onDesctruct
-    (
-        [shpHandle]()
-        {
-            SHPClose(shpHandle);
-        }
-    );
+    GpRAIIonDestruct onDesctruct = [shpHandle]()
+    {
+        SHPClose(shpHandle);
+    };
 
     std::array<double, 4>   adfMinBound;
     std::array<double, 4>   adfMaxBound;
@@ -42,13 +38,10 @@ GpGeoShape::C::Vec::Val GpGeoFormatEsriShapeManager::Read (std::string_view aFil
     {
         SHPObject* shpObject = SHPReadObject(shpHandle, shapeId);
 
-        GpRAIIonDestruct onDesctructObj
-        (
-            [shpObject]()
-            {
-                SHPDestroyObject(shpObject);
-            }
-        );
+        GpRAIIonDestruct onDesctructObj = [shpObject]()
+        {
+            SHPDestroyObject(shpObject);
+        };
 
         geoShapes.emplace_back(ReadShape(shpObject));
     }
@@ -65,19 +58,16 @@ void    GpGeoFormatEsriShapeManager::Write
     const std::string fileName(aFileName);
     SHPHandle shpHandle = SHPCreate(std::data(fileName), SHPT_POLYGON);
 
-    THROW_COND_GP
+    VERIFY
     (
         shpHandle != nullptr,
         [aFileName](){return "Can`t create ESRI shape file '"_sv + aFileName + "'"_sv;}
     );
 
-    GpRAIIonDestruct onDesctruct
-    (
-        [shpHandle]()
-        {
-            SHPClose(shpHandle);
-        }
-    );
+    GpRAIIonDestruct onDesctruct = [shpHandle]()
+    {
+        SHPClose(shpHandle);
+    };
 
     size_t shapeId = 0;
 
@@ -118,19 +108,16 @@ void    GpGeoFormatEsriShapeManager::Write
             nullptr
         );
 
-        GpRAIIonDestruct onDesctructObj
-        (
-            [shpObject]()
+        GpRAIIonDestruct onDesctructObj = [shpObject]()
+        {
+            if (shpObject)
             {
-                if (shpObject)
-                {
-                    SHPDestroyObject(shpObject);
-                }
+                SHPDestroyObject(shpObject);
             }
-        );
+        };
 
         //Write the object to the shapefile
-        THROW_COND_GP
+        VERIFY
         (
             SHPWriteObject(shpHandle, -1, shpObject) >= 0,
             "SHPWriteObject return -1"_sv
@@ -150,37 +137,37 @@ GpGeoShape  GpGeoFormatEsriShapeManager::ReadShape (SHPObject* aShapeObj) const
     const double*   pointsX             = aShapeObj->padfX;
     const double*   pointsY             = aShapeObj->padfY;
 
-    THROW_COND_GP
+    VERIFY
     (
         partsCount >= 1,
         [partsCount](){return "Parts count "_sv + std::to_string(partsCount);}
     );
 
-    THROW_COND_GP
+    VERIFY
     (
         partType != nullptr,
         "partType is NULL"_sv
     );
 
-    THROW_COND_GP
+    VERIFY
     (
         partStartPointId != nullptr,
         "partStartPointId is NULL"_sv
     );
 
-    THROW_COND_GP
+    VERIFY
     (
         totalPointsCount > 0,
         "totalPointsCount == 0"_sv
     );
 
-    THROW_COND_GP
+    VERIFY
     (
         pointsX != nullptr,
         "pointsX is NULL"_sv
     );
 
-    THROW_COND_GP
+    VERIFY
     (
         pointsY != nullptr,
         "pointsY is NULL"_sv
@@ -188,7 +175,7 @@ GpGeoShape  GpGeoFormatEsriShapeManager::ReadShape (SHPObject* aShapeObj) const
 
     for (size_t partId = 0; partId < partsCount; partId++)
     {
-        THROW_COND_GP
+        VERIFY
         (
             partType[partId] == SHPT_POLYGON,
             "pointsY is NULL"_sv
@@ -220,7 +207,7 @@ GpGeoShape  GpGeoFormatEsriShapeManager::ReadShape (SHPObject* aShapeObj) const
         geoShape.AddContour(std::move(contour));
     }
 
-    //THROW_GP("Unsupported shape type '"_sv + std::to_string(shapeObjType) + "'"_sv);
+    //THROW("Unsupported shape type '"_sv + std::to_string(shapeObjType) + "'"_sv);
 
     return geoShape;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Geometry/GpGeoPoint.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPoint.hpp>
 
 namespace GPlatform {
 

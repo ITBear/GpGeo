@@ -17,7 +17,7 @@ equals(var_link, "static") {
 
 # ----------- Libraries -----------
 equals(var_os, "windows") {
-	LIBS += -lGpUtils$$TARGET_POSTFIX
+	LIBS += -lGpUtils$$TARGET_POSTFIX$$_VER_MAJ
 }
 
 equals(var_os, "linux") {
@@ -52,12 +52,10 @@ HEADERS += \
 	Units/GpLongitude.hpp \
 	Utils/CoordinateConverters/GpGeoCC_Wgs84_WebMercator.hpp \
 	Utils/CoordinateConverters/GpGeoCoordinateConverter.hpp \
-	Utils/CoordinateConverters/GpGeoCoordinateConverters.hpp \
 	Utils/GpGeoConstants.hpp \
 	Utils/GpGeoCoordinateSystem.hpp \
 	Utils/GpGeoFormatManager.hpp \
 	Utils/GpGeoFormatManagerFactory.hpp \
 	Utils/GpGeoGeoidUtils.hpp \
 	Utils/GpGeoSmallScaleUtils.hpp \
-	Utils/GpGeoToString.hpp \
-	Utils/GpGeoUtils.hpp
+	Utils/GpGeoToString.hpp

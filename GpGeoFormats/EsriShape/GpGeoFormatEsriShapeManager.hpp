@@ -1,7 +1,7 @@
 #pragma once
 
-#include "EsriShape_global.hpp"
-#include "../../GpGeoCore/Utils/GpGeoFormatManager.hpp"
+#include <GpGeo/GpGeoFormats/EsriShape/EsriShape_global.hpp>
+#include <GpGeo/GpGeoCore/Utils/GpGeoFormatManager.hpp>
 #include <shapelib/shapefil.h>
 
 namespace GPlatform {

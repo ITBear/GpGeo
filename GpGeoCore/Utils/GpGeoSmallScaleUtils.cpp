@@ -1,4 +1,4 @@
-#include "GpGeoSmallScaleUtils.hpp"
+#include <GpGeo/GpGeoCore/Utils/GpGeoSmallScaleUtils.hpp>
 
 namespace GPlatform {
 

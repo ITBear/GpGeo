@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../GpGeoDataModel_global.hpp"
+#include <GpGeo/GpGeoDataModel/GpGeoDataModel_global.hpp>
 
 namespace GPlatform {
 

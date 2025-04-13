@@ -1,4 +1,4 @@
-#include "GpGeoShapeDesc.hpp"
+#include <GpGeo/GpGeoDataModel/Entities/GpGeoShapeDesc.hpp>
 
 namespace GPlatform {
 /*

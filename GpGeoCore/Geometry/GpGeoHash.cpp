@@ -15,7 +15,7 @@ const GpGeoHash::AlphabetT      GpGeoHash::sAlphabet =
 
 std::string GpGeoHash::ToString (const size_t aHashLength) const
 {
-    THROW_COND_GP
+    VERIFY
     (
         (aHashLength >= 1) && (aHashLength <= 12),
         "aHashLength is out of range [1..12]"_sv
@@ -70,7 +70,7 @@ void    GpGeoHash::FromString (std::string_view aHashStr)
             hashPart = u_int_64(21) + chInt - u_int_64('p');
         } else
         {
-            THROW_GP("Wrong geohash value '"_sv + aHashStr + "', wrong character "_sv + std::string(&ch, 1));
+            THROW("Wrong geohash value '"_sv + aHashStr + "', wrong character "_sv + std::string(&ch, 1));
         }
 
         hash <<= 5;
@@ -86,13 +86,13 @@ void    GpGeoHash::UpdateLength
     const size_t aNewLength
 )
 {
-    THROW_COND_GP
+    VERIFY
     (
         (aOldLength >= 1) && (aOldLength <= 12),
         "aOldLength is out of range [1..12]"_sv
     );
 
-    THROW_COND_GP
+    VERIFY
     (
         (aNewLength >= 1) && (aNewLength <= 12),
         "aNewLength is out of range [1..12]"_sv
@@ -116,7 +116,7 @@ void    GpGeoHash::UpdateLength
 
 std::array<GpGeoHash, 9>    GpGeoHash::Neighbours (const size_t aHashLength) const
 {
-    THROW_COND_GP
+    VERIFY
     (
         (aHashLength >= 1) && (aHashLength <= 12),
         "aHashLength is out of range [1..12]"_sv
@@ -162,7 +162,7 @@ GpGeoHash::OneOrVectorValT  GpGeoHash::Neighbours
     const size_t aHashOffsetCount
 ) const
 {
-    THROW_COND_GP
+    VERIFY
     (
         (aHashLength >= 1) && (aHashLength <= 12),
         "aHashLength is out of range [1..12]"_sv
@@ -186,7 +186,7 @@ GpGeoHash::OneOrVectorValT  GpGeoHash::Neighbours
 
 /*GpGeoHash GpGeoHash::CropToLength (const size_t aHashLength) const
 {
-    THROW_COND_GP
+    VERIFY
     (
         (aHashLength >= 1) && (aHashLength <= 12),
         "aHashLength is out of range [1..12]"_sv

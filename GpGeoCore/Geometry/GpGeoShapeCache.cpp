@@ -1,10 +1,10 @@
-#include "GpGeoShapeCache.hpp"
-#include "GpGeoShapeCacheImpl.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShapeCache.hpp>
+#include <GpGeo/GpGeoCore/Geometry/GpGeoShapeCacheImpl.hpp>
 
 namespace GPlatform {
 
 GpGeoShapeCache::GpGeoShapeCache (void):
-iImpl(std::make_unique<GpGeoShapeCacheImpl>())
+iImpl{std::make_unique<GpGeoShapeCacheImpl>()}
 {   
 }
 

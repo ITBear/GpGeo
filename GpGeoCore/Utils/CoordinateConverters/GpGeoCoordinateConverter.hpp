@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../Geometry/GpGeoPoint.hpp"
-#include "../GpGeoCoordinateSystem.hpp"
-#include "GpGeoCC_Wgs84_WebMercator.hpp"
+#include <GpGeo/GpGeoCore/Geometry/GpGeoPoint.hpp>
+#include <GpGeo/GpGeoCore/Utils/GpGeoCoordinateSystem.hpp>
+#include <GpGeo/GpGeoCore/Utils/CoordinateConverters/GpGeoCC_Wgs84_WebMercator.hpp>
 
 namespace GPlatform {
 

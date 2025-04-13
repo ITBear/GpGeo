@@ -1,4 +1,4 @@
-#include "GpGeoExceptionCode.hpp"
+#include <GpGeo/GpGeoDataModel/Exceptions/GpGeoExceptionCode.hpp>
 
 namespace GPlatform {
 

@@ -1,5 +1,4 @@
-#include "GpGeoElementNameDesc.hpp"
-
+#include <GpGeo/GpGeoDataModel/Entities/GpGeoElementNameDesc.hpp>
 #include <GpCore2/GpReflection/GpReflectManager.hpp>
 #include <GpCore2/GpReflection/GpReflectPropUtils.hpp>
 

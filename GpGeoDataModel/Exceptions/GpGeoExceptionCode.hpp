@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../GpGeoDataModel_global.hpp"
-
+#include <GpGeo/GpGeoDataModel/GpGeoDataModel_global.hpp>
 #include <GpCore2/GpUtils/Types/Enums/GpEnum.hpp>
 #include <GpCore2/GpUtils/Types/Strings/GpStringOps.hpp>
 
