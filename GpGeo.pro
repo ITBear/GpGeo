@@ -20,7 +20,7 @@ os_linux {
 		./GpGeoCore \
 		./GpGeoDataModel \
 		./GpGeoFormats
-} else:os_macx {
+} else:os_macos {
 	SUBDIRS += \
 		./GpGeoCore \
 		./GpGeoDataModel \

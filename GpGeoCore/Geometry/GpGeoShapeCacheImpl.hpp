@@ -11,6 +11,7 @@ GP_WARNING_PUSH()
     GP_WARNING_DISABLE(shadow)
     GP_WARNING_DISABLE(double-promotion)
     GP_WARNING_DISABLE(conversion)
+    GP_WARNING_DISABLE(switch-enum)
 #endif// #if defined(GP_COMPILER_CLANG) || defined(GP_COMPILER_GCC)
 
 #   pragma warning(disable : 4371)

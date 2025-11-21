@@ -1,7 +1,10 @@
 #include <GpGeo/GpGeoDataModel/GpGeoDataModelLib.hpp>
+#include <GpCore2/GpUtils/Other/GpLinkedLibsInfo.hpp>
 
-namespace GPlatform {
+GP_STATIC_INITIALIZER_IMPL(GpGeoDataModel)
+GP_LIB_REGISTRATOR(GpGeoDataModelLib)
 
-GP_IMPLEMENT_LIB_REGISTRATOR(GpGeoDataModelLib)
-
-}// namespace GPlatform
+void    GpGeoDataModel_StaticInitializer::OnInitialize (void)
+{
+    GpGeoDataModelLib::SRegisterSelf();
+}

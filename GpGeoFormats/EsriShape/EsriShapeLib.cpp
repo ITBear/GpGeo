@@ -1,7 +1,10 @@
 #include <GpGeo/GpGeoFormats/EsriShape/EsriShapeLib.hpp>
+#include <GpCore2/GpUtils/Other/GpLinkedLibsInfo.hpp>
 
-namespace GPlatform {
+GP_STATIC_INITIALIZER_IMPL(EsriShape)
+GP_LIB_REGISTRATOR(EsriShapeLib)
 
-GP_IMPLEMENT_LIB_REGISTRATOR(EsriShapeLib)
-
-}// namespace GPlatform
+void    EsriShape_StaticInitializer::OnInitialize (void)
+{
+    EsriShapeLib::SRegisterSelf();
+}

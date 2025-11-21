@@ -1,7 +1,10 @@
 #include <GpGeo/GpGeoCore/GpGeoCoreLib.hpp>
+#include <GpCore2/GpUtils/Other/GpLinkedLibsInfo.hpp>
 
-namespace GPlatform {
+GP_STATIC_INITIALIZER_IMPL(GpGeoCore)
+GP_LIB_REGISTRATOR(GpGeoCoreLib)
 
-GP_IMPLEMENT_LIB_REGISTRATOR(GpGeoCoreLib)
-
-}// namespace GPlatform
+void    GpGeoCore_StaticInitializer::OnInitialize (void)
+{
+    GpGeoCoreLib::SRegisterSelf();
+}

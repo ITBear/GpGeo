@@ -24,6 +24,10 @@ equals(var_os, "linux") {
 	LIBS += -lGpUtils$$TARGET_POSTFIX
 }
 
+equals(var_os, "macos") {
+	LIBS += -lGpUtils$$TARGET_POSTFIX
+}
+
 # ----------- Sources and headers -----------
 SOURCES += \
 	Geometry/GpGeoAABB.cpp \

@@ -1,10 +1,6 @@
 #pragma once
 
 #include <GpGeo/GpGeoCore/GpGeoCore_global.hpp>
-#include <GpCore2/GpUtils/Other/GpLinkedLibsInfo.hpp>
+#include <GpCore2/GpUtils/Other/GpStaticInitializer.hpp>
 
-namespace GPlatform {
-
-GP_DECLARE_LIB_REGISTRATOR(GpGeoCoreLib)
-
-}// namespace GPlatform
+GP_STATIC_INITIALIZER(GP_GEO_CORE_API, GpGeoCore)

@@ -12,7 +12,7 @@ os_linux {
 } else:os_windows {
 	SUBDIRS += \
 		./EsriShape
-} else:os_macx {
+} else:os_macos {
 	SUBDIRS += \
 		./EsriShape
 } else:os_browser {

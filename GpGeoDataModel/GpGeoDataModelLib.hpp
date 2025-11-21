@@ -1,10 +1,6 @@
 #pragma once
 
 #include <GpGeo/GpGeoDataModel/GpGeoDataModel_global.hpp>
-#include <GpCore2/GpUtils/Other/GpLinkedLibsInfo.hpp>
+#include <GpCore2/GpUtils/Other/GpStaticInitializer.hpp>
 
-namespace GPlatform {
-
-GP_DECLARE_LIB_REGISTRATOR(GpGeoDataModelLib)
-
-}// namespace GPlatform
+GP_STATIC_INITIALIZER(GP_GEO_DATA_MODEL_API, GpGeoDataModel)
